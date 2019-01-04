@@ -66,32 +66,44 @@ namespace api.Controllers
                     return BadRequest();
                 }
 
-                //Verifica se os dados passados correspondem com as regras de negócio
-                if ((viagem.DataChegada < viagem.DataSaida) || (viagem.OrigemCidadeId == viagem.DestinoCidadeId) || (viagem.ToneladaPrecoUnitario < 1) || (viagem.ToneladaCarga < 1)) 
-                {
-                    return BadRequest();
-                }
-                
-                    var _viagem = _viagemRepository.Find(id);
-                    
-                        if(_viagem == null) 
-                        {
-                            return NotFound();
-                        }
-                            //viagem     = variável vinda do form
-                            //_viagem    = variável vinda do banco
-                            _viagemRepository.Update(viagem, _viagem);
+                    //Verifica se os dados passados correspondem com as regras de negócio
+                    if ((viagem.DataChegada < viagem.DataSaida) || (viagem.OrigemCidadeId == viagem.DestinoCidadeId) || (viagem.ToneladaPrecoUnitario < 1) || (viagem.ToneladaCarga < 1)) 
+                    {
+                        return BadRequest();
+                    }
 
-                                if (_viagemRepository.Find(id).Equals(_viagem))
-                                {
-                                    var resultado = new RetornoView<Viagem>() { data = _viagem, sucesso = true };
-                                        return resultado;
-                                }
-                                else 
-                                {
-                                    var resultado = new RetornoView<Viagem>() { sucesso = false };
-                                        return BadRequest(resultado);
-                                } 
+                    if (viagem.despesas != null) 
+                    {
+                        foreach (var item in viagem.despesas)
+                        {
+                            //Valida as regras de negócio para despesas
+                            if ((item.Historico.Length < 5) || (item.Valor < 0) || (item.DataLancamento < viagem.DataSaida) || (item.DataLancamento > viagem.DataChegada)) 
+                            {
+                                return BadRequest();
+                            }
+                        }
+                    }
+                
+                        var _viagem = _viagemRepository.Find(id);
+                        
+                            if(_viagem == null) 
+                            {
+                                return NotFound();
+                            }
+                                //viagem     = variável vinda do form
+                                //_viagem    = variável vinda do banco
+                                _viagemRepository.Update(viagem, _viagem);
+
+                                    if (_viagemRepository.Find(id) == _viagem)
+                                    {
+                                        var resultado = new RetornoView<Viagem>() { data = _viagem, sucesso = true };
+                                            return resultado;
+                                    }
+                                    else 
+                                    {
+                                        var resultado = new RetornoView<Viagem>() { sucesso = false };
+                                            return BadRequest(resultado);
+                                    } 
             }
 
             [HttpDelete("{id}")]

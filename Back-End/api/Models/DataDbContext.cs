@@ -11,5 +11,6 @@ namespace api.Models
         public DbSet<Veiculo> Veiculo { get; set; }
         public DbSet<CidadeIbge> CidadeIbge { get; set; }
         public DbSet<Viagem> Viagem { get; set; }
+        public DbSet<ViagemDespesa> ViagemDespesa { get; set; }
     }
 }

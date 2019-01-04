@@ -82,7 +82,7 @@ namespace api.Repository
                      Console.WriteLine("Erro");
                          Console.WriteLine(e);
                             transaction.Rollback();
-                                return;
+                                throw new System.Net.WebException (string.Format("Falha ao atualizar dados do veiculo"));
                 }
         }
     }

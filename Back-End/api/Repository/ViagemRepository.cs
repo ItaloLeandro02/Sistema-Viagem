@@ -16,22 +16,40 @@ namespace api.Repository
         public void Add(Viagem viagem)
         {
             var transaction = _context.Database.BeginTransaction();
-                try {
+                try 
+                {
+                    viagem.ValorTotalDespesa = 0;
 
-                    if ((viagem.DataChegada < viagem.DataSaida) || (viagem.OrigemCidadeId == viagem.DestinoCidadeId) || (viagem.ToneladaPrecoUnitario < 1) || (viagem.ToneladaCarga < 1)) 
-                    {
-                        transaction.Rollback();
-                            return;
-                    }
+                        if ((viagem.DataChegada < viagem.DataSaida) || (viagem.OrigemCidadeId == viagem.DestinoCidadeId) || (viagem.ToneladaPrecoUnitario < 1) || (viagem.ToneladaCarga < 1)) 
+                        {
+                            transaction.Rollback();
+                                return;
+                        }
 
-                        viagem.ValorTotalBruto   = (viagem.ToneladaCarga * viagem.ToneladaPrecoUnitario); 
-                        viagem.ValorTotalLiquido = (viagem.ValorTotalBruto - viagem.ValorTotalDespesa);
+                        if (viagem.despesas != null) 
+                        {
+                            foreach (var item in viagem.despesas)
+                            {
+                                //Valida as regras de negócio para despesas
+                                if ((item.Historico.Length < 5) || (item.Valor < 0) || (item.DataLancamento < viagem.DataSaida) || (item.DataLancamento > viagem.DataChegada)) 
+                                {
+                                    transaction.Rollback();
+                                        return;
+                                }
+
+                                    viagem.ValorTotalDespesa += item.Valor;
+                            }
+                        }
+                        
+                            viagem.ValorTotalBruto   = (viagem.ToneladaCarga * viagem.ToneladaPrecoUnitario);
+                            viagem.ValorTotalLiquido = (viagem.ValorTotalBruto - viagem.ValorTotalDespesa);  
 
                             _context.Viagem.Add(viagem);
                                 _context.SaveChanges();
                                     transaction.Commit();
                 }
-                catch (Exception e) {
+                catch (Exception e) 
+                {
                     Console.WriteLine("Erro");
                          Console.WriteLine(e);
                             transaction.Rollback();
@@ -47,6 +65,7 @@ namespace api.Repository
             .Include(m => m.motorista)
             .Include(o => o.cidadeOrigem)
             .Include(d => d.cidadeDestino)
+            .Include(e => e.despesas)
             .FirstOrDefault(u => u.Id == id);
         }
 
@@ -58,6 +77,7 @@ namespace api.Repository
             .Include(m => m.motorista)
             .Include(o => o.cidadeOrigem)
             .Include(d => d.cidadeDestino)
+            .Include(e => e.despesas)
             .ToList();
         }
 
@@ -71,17 +91,12 @@ namespace api.Repository
                     .Where(v => v.Id == id)
                     .First();
 
-                    var veiculo = _context.Veiculo
-                    .Where(vei => vei.Id == viagem.VeiculoId)
-                    .First();
-
-                    var motorista = _context.Motorista
-                    .Where(m => m.Id == viagem.MotoristaId)
+                    var despesa = _context.ViagemDespesa
+                    .Where(d => d.ViagemId == viagem.Id)
                     .First();
 
                         _context.Viagem.Remove(viagem);
-                        _context.Veiculo.Remove(veiculo);
-                        _context.Motorista.Remove(motorista);
+                        _context.ViagemDespesa.Remove(despesa);
                             _context.SaveChanges();
                                 transaction.Commit();
                 }
@@ -94,8 +109,10 @@ namespace api.Repository
 
         public void Update(Viagem form, Viagem banco)
         {
-            var transaction = _context.Database.BeginTransaction();
-                try{
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
 
                     //Confirmar quais dados serão atualizados
                     banco.OrigemCidadeId            = form.OrigemCidadeId;
@@ -111,12 +128,15 @@ namespace api.Repository
                             _context.SaveChanges();
                                 transaction.Commit();
                 }
-                catch (Exception e) {
-                     Console.WriteLine("Erro");
-                         Console.WriteLine(e);
+                //Preciso tratar para não precisar retornar erro 500
+                catch (Exception e) 
+                {
+                    Console.WriteLine("Erro");
+                        Console.WriteLine(e);
                             transaction.Rollback();
-                                return;
-                 }
+                                throw new System.Net.WebException (string.Format("Falha ao atualizar dados da viagem"));
+                }
+            }     
         }
     }
 }

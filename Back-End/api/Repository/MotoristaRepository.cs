@@ -64,8 +64,8 @@ namespace api.Repository
         {
             var transaction = _context.Database.BeginTransaction();
                 try {
-                    var entity = _context.Motorista.First(u => u.Id == id);
-                        _context.Motorista.Remove(entity);
+                    var motorista = _context.Motorista.First(u => u.Id == id);
+                        _context.Motorista.Remove(motorista);
                             _context.SaveChanges();
                                 transaction.Commit();
                 }
@@ -92,6 +92,7 @@ namespace api.Repository
                                 form.Apelido = nome[0];    
                             }
                     }
+
                         banco.Nome       = form.Nome;
                         banco.Apelido    = form.Apelido;
                         banco.Desativado = form.Desativado;
@@ -104,7 +105,7 @@ namespace api.Repository
                     Console.WriteLine("Erro");
                         Console.WriteLine(e);
                             transaction.Rollback();
-                                return;
+                                throw new System.Net.WebException (string.Format("Falha ao atualizar dados do motorista"));
                 }
         }
     }

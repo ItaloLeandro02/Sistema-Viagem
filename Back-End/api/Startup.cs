@@ -37,6 +37,7 @@ namespace api
             services.AddTransient<IMotoristaRepository, MotoristaRepository>();
             services.AddTransient<ICidadeIbgeRepository, CidadeIbgeRepository>();
             services.AddTransient<IViagemRepository, ViagemRepository>();
+            services.AddTransient<IViagemDespesaRepository, ViagemDespesaRepository>();
 
             //CORS
             services.AddCors(o => o.AddPolicy("CorsApi", builder => {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,6 +28,8 @@ namespace api.Models
         [ForeignKey("cidadeDestino")]
         public int DestinoCidadeId { get; set; }
         public virtual CidadeIbge cidadeDestino { get; set; }
+
+        public virtual List<ViagemDespesa> despesas { get; set; }
         
         public double ToneladaPrecoUnitario { get; set; }
         public double ToneladaCarga { get; set; }
