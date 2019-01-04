@@ -12,3 +12,17 @@ C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.RazorTargetAssemblyInfo.cache
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.dll
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.pdb
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\bin\Debug\netcoreapp2.2\api.deps.json
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\bin\Debug\netcoreapp2.2\api.runtimeconfig.json
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\bin\Debug\netcoreapp2.2\api.runtimeconfig.dev.json
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\bin\Debug\netcoreapp2.2\api.dll
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\bin\Debug\netcoreapp2.2\api.pdb
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.csprojAssemblyReference.cache
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.csproj.CoreCompileInputs.cache
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.RazorAssemblyInfo.cache
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.RazorAssemblyInfo.cs
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.AssemblyInfoInputs.cache
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.AssemblyInfo.cs
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.RazorTargetAssemblyInfo.cache
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.dll
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.pdb

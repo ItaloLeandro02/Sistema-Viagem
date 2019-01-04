@@ -67,18 +67,16 @@ namespace api.Repository
         {
             var transaction = _context.Database.BeginTransaction();
                 try {
-                    //Verifica se o ano de fabricação é maior do que 2000
-                    //Verifica se o ano do modelo é maior do que o de fabicação
-                    if ((form.AnoFabricacao < 2000) || (form.AnoModelo < form.AnoFabricacao))
-                    {
-                        transaction.Rollback();
-                            return;
-                    }
-                        banco = form;
+                    
+                    banco.AnoFabricacao = form.AnoFabricacao;
+                    banco.AnoModelo     = form.AnoModelo;
+                    banco.Desativado    = form.Desativado;
+                    banco.Fabricante    = form.Fabricante;
+                    banco.Modelo        = form.Modelo;
 
-                            _context.Veiculo.Update(banco);
-                                _context.SaveChanges();
-                                    transaction.Commit();
+                        _context.Veiculo.Update(banco);
+                            _context.SaveChanges();
+                                transaction.Commit();
                 }
                 catch (Exception e) {
                      Console.WriteLine("Erro");

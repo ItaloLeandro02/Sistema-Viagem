@@ -6,10 +6,10 @@ namespace api.Controllers
 {
     [Route("api/[Controller]")]
     //[Authorize()]
-    public class MotoristasController : Controller
+    public class MotoristaController : Controller
     {
         private readonly IMotoristaRepository _motoristaRepository;
-        public MotoristasController(IMotoristaRepository motoristaRepository)
+        public MotoristaController(IMotoristaRepository motoristaRepository)
         {
             _motoristaRepository = motoristaRepository;
         }

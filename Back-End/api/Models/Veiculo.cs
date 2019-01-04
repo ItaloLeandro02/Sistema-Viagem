@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace api.Models
 {
     public class Veiculo
     {
+        [Key]
         public int Id { get; set; }
         public string Fabricante { get; set; }
         public string Modelo { get; set; }

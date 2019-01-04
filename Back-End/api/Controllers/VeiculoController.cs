@@ -6,10 +6,10 @@ namespace api.Controllers
 {
     [Route("api/[Controller]")]
     //[Authorize()]
-    public class VeiculosController : Controller
+    public class VeiculoController : Controller
     {
         private readonly IVeiculoRepository _veiculoRepository;
-        public VeiculosController(IVeiculoRepository veiculoRepository)
+        public VeiculoController(IVeiculoRepository veiculoRepository)
         {
             _veiculoRepository = veiculoRepository;
         }
@@ -62,6 +62,13 @@ namespace api.Controllers
             public ActionResult<RetornoView<Veiculo>> Update(int id, [FromBody] Veiculo veiculo)
             {
                 if (veiculo == null) 
+                {
+                    return BadRequest();
+                }
+
+                //Verifica se o ano de fabricação é maior do que 2000
+                //Verifica se o ano do modelo é maior do que o de fabicação
+                if ((veiculo.AnoFabricacao < 2000) || (veiculo.AnoModelo < veiculo.AnoFabricacao))
                 {
                     return BadRequest();
                 }
