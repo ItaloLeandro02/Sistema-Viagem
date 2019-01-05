@@ -107,12 +107,26 @@ namespace api.Repository
                 }
         }
 
+        //Precisa ser melhorado?
         public void Update(Viagem form, Viagem banco)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
+                    if (form.despesas != null) 
+                    {
+                        banco.ValorTotalDespesa = 0;
+                            for (int i = 0; i < form.despesas.Count(); i++)
+                            {
+ 
+                                banco.despesas[i].DataLancamento  = form.despesas[i].DataLancamento;
+                                banco.despesas[i].Historico       = form.despesas[i].Historico;
+                                banco.despesas[i].Valor           = form.despesas[i].Valor;
+
+                                banco.ValorTotalDespesa += form.despesas[i].Valor;
+                            }
+                    }
 
                     //Confirmar quais dados serão atualizados
                     banco.OrigemCidadeId            = form.OrigemCidadeId;
@@ -120,9 +134,11 @@ namespace api.Repository
                     banco.MotoristaId               = form.MotoristaId;
                     banco.ToneladaCarga             = form.ToneladaCarga;
                     banco.ToneladaPrecoUnitario     = form.ToneladaPrecoUnitario;
-                    banco.ValorTotalDespesa         = form.ValorTotalDespesa;
                     banco.DataChegada               = form.DataChegada;
                     banco.DataSaida                 = form.DataSaida;
+                    
+                    banco.ValorTotalBruto   = (banco.ToneladaCarga * banco.ToneladaPrecoUnitario);
+                    banco.ValorTotalLiquido = (banco.ValorTotalBruto - banco.ValorTotalDespesa);
 
                         _context.Viagem.Update(banco);
                             _context.SaveChanges();
