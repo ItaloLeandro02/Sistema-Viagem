@@ -57,6 +57,11 @@ namespace api.Repository
                 }
         }
 
+        public IEnumerable<Viagem> FaturamentoVeiculo()
+        {
+            return _context.Viagem.Include(v => v.veiculo).ToArray();
+        }
+
         public Viagem Find(int id)
         {
             //Preciso trabalhar aqui para não retornar dados sensíveis

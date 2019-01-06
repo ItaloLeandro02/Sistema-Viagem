@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using api.Models;
 using api.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +37,34 @@ namespace api.Controllers
                             new {
                                 data = viagem
                         });
+            }
+
+            [HttpGet("faturamento-veiculo")]
+            public ActionResult<RetornoView<Viagem>> teste()
+            {
+
+                List<double> list = new List<double>();
+                List<double> valores = new List<double>();
+
+                var dados = _viagemRepository.GetAll();
+
+                foreach (var item in dados)
+                {
+                    foreach (var item1 in dados)
+                    {
+                        if ((item.VeiculoId == item1.VeiculoId) && (item.Id != item1.Id))
+                        {
+                            valores.Add(item1.ValorTotalLiquido);
+
+                        }                                                   
+                    }
+                        list.Add(valores.Sum());
+                        valores.Clear();
+                }
+                return Ok (
+                    new {
+                        data = list
+                    });
             }
 
             [HttpPost]
