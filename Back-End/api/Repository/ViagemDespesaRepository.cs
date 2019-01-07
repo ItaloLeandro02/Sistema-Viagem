@@ -19,7 +19,6 @@ namespace api.Repository
                 try {
 
                     var viagem = _context.Viagem.First(u => u.Id == despesa.ViagemId);
-                    Console.WriteLine(!(despesa.DataLancamento >= viagem.DataSaida && despesa.DataLancamento <= viagem.DataChegada));
 
                     if ((despesa.Historico.Length < 5) || (despesa.Valor < 0) || (despesa.DataLancamento < viagem.DataSaida) || (despesa.DataLancamento < viagem.DataChegada)) 
                     {

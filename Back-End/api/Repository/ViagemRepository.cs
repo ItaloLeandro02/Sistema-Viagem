@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using api.Models;
+using api.Views;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
     public class ViagemRepository : IViagemRepository
     {
+        public  DbQuery<DashboardFaturamento> queryViagem{get; set;}
         private readonly DataDbContext _context;
         public ViagemRepository(DataDbContext ctx) 
         {
@@ -57,9 +59,21 @@ namespace api.Repository
                 }
         }
 
-        public IEnumerable<Viagem> FaturamentoVeiculo()
+        public IEnumerable<DashboardFaturamento> Dashboard()
         {
-            return _context.Viagem.Include(v => v.veiculo).ToArray();
+            // var query = queryViagem.FromSql("SELECT * FROM motorista").DefaultIfEmpty().AsEnumerable();
+            //     return query; 
+
+            return _context.Teste.FromSql("SELECT count(veiculo.id) Id, veiculo.modelo Modelo, SUM(viagem.valorTotalLiquido) Total FROM veiculo, viagem WHERE veiculo.id = viagem.veiculoId  GROUP BY(veiculo.modelo)").DefaultIfEmpty().AsEnumerable();
+
+            //var viagem = _context.Database.SqlQuery<DashboardFaturamento>().ToList();
+            // return _context.Viagem
+            // .Include(x => x.veiculo)
+            // .Select(x => new DashboardFaturamento {
+            //     Total = x.ValorTotalLiquido
+            // })
+            // .AsNoTracking()
+            // .ToList();
         }
 
         public Viagem Find(int id)

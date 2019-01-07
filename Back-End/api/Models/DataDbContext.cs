@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using api.Views;
 
 namespace api.Models
 {
@@ -12,5 +13,6 @@ namespace api.Models
         public DbSet<CidadeIbge> CidadeIbge { get; set; }
         public DbSet<Viagem> Viagem { get; set; }
         public DbSet<ViagemDespesa> ViagemDespesa { get; set; }
+        public DbSet<DashboardFaturamento> Teste { get; set; }
     }
 }

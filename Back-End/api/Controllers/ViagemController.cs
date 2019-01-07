@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using api.Models;
+using api.Views;
 using api.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,30 +41,40 @@ namespace api.Controllers
             }
 
             [HttpGet("faturamento-veiculo")]
-            public ActionResult<RetornoView<Viagem>> teste()
+            public ActionResult<RetornoView<Motorista>> teste()
             {
 
-                List<double> list = new List<double>();
-                List<double> valores = new List<double>();
+                // List<double> list = new List<double>();
+                // List<double> valores = new List<double>();
+                // int idVeiculo = 0;
 
-                var dados = _viagemRepository.GetAll();
+                // var dados = _viagemRepository.GetAll();
 
-                foreach (var item in dados)
-                {
-                    foreach (var item1 in dados)
-                    {
-                        if ((item.VeiculoId == item1.VeiculoId) && (item.Id != item1.Id))
-                        {
-                            valores.Add(item1.ValorTotalLiquido);
+                // foreach (var item in dados)
+                // {
+                //     foreach (var item1 in dados)
+                //     {
+                //         if ((item.VeiculoId == item1.VeiculoId))
+                //         {
+                //             valores.Add(item1.ValorTotalLiquido);
+                //         }
+                //         else 
+                //         {
+                //             valores.Clear();
+                //             idVeiculo = item.Id;
+                //         }
+                //     }
+                //         if (item.Id != idVeiculo) 
+                //         {
+                //             list.Add(valores.Sum());
+                //             valores.Clear();
+                //         }
+                //             valores.Clear();
+                // }
 
-                        }                                                   
-                    }
-                        list.Add(valores.Sum());
-                        valores.Clear();
-                }
                 return Ok (
                     new {
-                        data = list
+                        data = _viagemRepository.Dashboard()
                     });
             }
 
