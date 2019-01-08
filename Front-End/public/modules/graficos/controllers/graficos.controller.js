@@ -27,19 +27,20 @@ function graficoController(graficoService) {
                 
                     //Name
                     dataset.forEach(item => {
-                        if (nome != item.modelo)
-                        {
+                        // if (nome != item.modelo)
+                        // {
                             nomes.push(item.modelo)
                                 nome = item.modelo
-                        }
+                        //}
                     });
+                    var unicos =   nomes.filter(onlyUnique )
+                    console.log(unicos)
                     
                     //Data
                     dataset.forEach(item => {
                         data.push([[(item.mes - 1), item.total]])
                     });
 
-                    console.log(nomes, data)
                         var faturamentoVeiculo = Highcharts.chart('faturamento-veiculo', {
                             chart: {
                                 type: 'column'
@@ -57,5 +58,9 @@ function graficoController(graficoService) {
                             },
                         });
 		})
-	}
+    }
+    
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }
 }
