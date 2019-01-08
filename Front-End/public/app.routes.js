@@ -16,10 +16,19 @@ router.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('faturamento-veiculo', {
             url: '/faturamento-veiculo',
             templateUrl: '/modules/graficos/views/faturamento-veiculo.html',
-            controller: 'GraficoController',
+            controller: 'FaturamentoController',
             controllerAs: 'vm',
             params: {
-                title: "Faturamento Por Veiculo"
+                title: "Faturamento"
+            }
+        })
+        .state('comissoes', {
+            url: '/comissoes',
+            templateUrl: '/modules/graficos/views/comissoes.html',
+            controller: 'ComissaoController',
+            controllerAs: 'vm',
+            params: {
+                title: "Comissões"
             }
         });
 

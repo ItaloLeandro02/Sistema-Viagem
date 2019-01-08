@@ -5,7 +5,8 @@ var materialApp = angular
     'ngMaterial',
     'ngResource',
     'appCtrl',
-    'app.grafico'    
+    'app.faturamento',
+    'app.comissao'     
     
 
 ]).config(function($mdThemingProvider) {

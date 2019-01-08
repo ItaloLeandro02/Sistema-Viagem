@@ -43,6 +43,11 @@
             <span>Faturamento Por Veiculo</span>
         </md-list-item>
         <md-divider></md-divider>
+       
+        <md-list-item layout="row" ng-click="app.toggleLeft()" href="/comissoes">
+            <span>Comissões</span>
+        </md-list-item>
+        <md-divider></md-divider>
     
         <md-list-item layout="row" ng-click="app.toggleLeft()" href="/list">
             <span>Condôminos</span>
@@ -114,8 +119,11 @@
 
 <script type="text/javascript" src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-<script src="modules/graficos/controllers/graficos.controller.js"></script>
-<script src="modules/graficos/services/grafico.service.js"></script>
+<script src="modules/graficos/controllers/faturamento.controller.js"></script>
+<script src="modules/graficos/services/faturamento.service.js"></script>
+
+<script src="modules/graficos/controllers/comissao.controller.js"></script>
+<script src="modules/graficos/services/comissao.service.js"></script>
 
 <script src="app.controller.js"></script>
 
