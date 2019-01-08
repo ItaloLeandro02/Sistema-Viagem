@@ -41,7 +41,7 @@ namespace api.Controllers
             }
 
             [HttpGet("faturamento-veiculo")]
-            public ActionResult<RetornoView<Motorista>> teste()
+            public ActionResult<RetornoView<DashboardFaturamento>> teste()
             {
 
                 // List<double> list = new List<double>();

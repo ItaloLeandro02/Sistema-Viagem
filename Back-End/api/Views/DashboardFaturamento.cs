@@ -1,8 +1,11 @@
+using System;
+
 namespace api.Views
 {
     public class DashboardFaturamento
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
+        public int Mes { get; set; }
         public string Modelo { get; set; }
         public double Total { get; set; }
     }

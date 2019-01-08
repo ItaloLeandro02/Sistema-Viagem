@@ -4,3 +4,12 @@ return _context.Teste.FromSql("SELECT Id, VeiculoId FROM viagem").DefaultIfEmpty
 Queries:
 SELECT count(0) Id, veiculo.modelo Modelo, SUM(viagem.valorTotalLiquido) Total FROM veiculo, viagem WHERE veiculo.id = viagem.veiculoId  GROUP BY(veiculo.modelo)
 SELECT v.dataChegada Mes, f.modelo Modelo, v.valorTotalLiquido Total FROM viagem as v JOIN veiculo as f ON v.veiculoId = f.id
+
+SELECT (SELECT DATEPART ( MONTH, v.dataChegada)) Mes, f.modelo Modelo, v.valorTotalLiquido Total FROM viagem as v JOIN veiculo as f ON v.veiculoId = f.id
+
+
+SELECT DISTINCT (SELECT DATEPART ( MONTH, viagem.dataChegada)) Mes, veiculo.modelo Modelo, SUM(viagem.valorTotalLiquido) Total FROM veiculo, viagem WHERE veiculo.id = viagem.veiculoId  GROUP BY viagem.dataChegada, veiculo.modelo
+
+
+SELECT (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo ORDER BY (vi.dataChegada) DESC
+SELECT (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo ORDER BY (vi.dataChegada) DESC

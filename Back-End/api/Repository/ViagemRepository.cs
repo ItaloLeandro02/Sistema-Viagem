@@ -64,16 +64,8 @@ namespace api.Repository
             // var query = queryViagem.FromSql("SELECT * FROM motorista").DefaultIfEmpty().AsEnumerable();
             //     return query; 
 
-            return _context.Teste.FromSql("SELECT count(veiculo.id) Id, veiculo.modelo Modelo, SUM(viagem.valorTotalLiquido) Total FROM veiculo, viagem WHERE veiculo.id = viagem.veiculoId  GROUP BY(veiculo.modelo)").DefaultIfEmpty().AsEnumerable();
-
-            //var viagem = _context.Database.SqlQuery<DashboardFaturamento>().ToList();
-            // return _context.Viagem
-            // .Include(x => x.veiculo)
-            // .Select(x => new DashboardFaturamento {
-            //     Total = x.ValorTotalLiquido
-            // })
-            // .AsNoTracking()
-            // .ToList();
+            return _context.Teste
+            .FromSql("SELECT  ROW_NUMBER() OVER(ORDER BY ve.modelo ASC) Id, (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo").DefaultIfEmpty().AsEnumerable();
         }
 
         public Viagem Find(int id)
