@@ -19,27 +19,33 @@ function graficoController(graficoService) {
 		graficoService.getAll().then(function(dados){			
             dataset = dados.data
                 nome = null
-            // console.log(nomes[item.id - 1])
-            //         if (nomes[item.id - 1] == item.modelo)
-            //         {
-            //             data.push([[(item.mes - 1), item.total]])
-            //         }    
+                    
+                    function extraiData(veiculo) {
+                        let faturamentoVeiculo = dataset.filter(function(item) {
+                            return item.modelo == veiculo
+                        })
+
+                        let faturamentoMensal = [0,0,0,0,0,0,0,0,0,0,0,0]
+                        faturamentoVeiculo.forEach(function(item, index) {
+                            faturamentoMensal.splice(index, 1, item.total)
+                        })
+
+                        return faturamentoMensal
+                    }
                 
                     //Name
                     dataset.forEach(item => {
-                        // if (nome != item.modelo)
-                        // {
+                        if (nomes.indexOf(item.modelo) == -1) {
                             nomes.push(item.modelo)
-                                nome = item.modelo
-                        //}
+                        }
                     });
-                    var unicos =   nomes.filter(onlyUnique )
-                    console.log(unicos)
-                    
-                    //Data
-                    dataset.forEach(item => {
-                        data.push([[(item.mes - 1), item.total]])
-                    });
+
+                    nomes.forEach(carro => {
+                        options.push({
+                            name : carro,
+                            data : extraiData(carro)
+                        })
+                    })
 
                         var faturamentoVeiculo = Highcharts.chart('faturamento-veiculo', {
                             chart: {
@@ -56,11 +62,8 @@ function graficoController(graficoService) {
                                     text: 'Mês'
                                 }
                             },
+                            series: options
                         });
 		})
-    }
-    
-    function onlyUnique(value, index, self) { 
-        return self.indexOf(value) === index;
     }
 }
