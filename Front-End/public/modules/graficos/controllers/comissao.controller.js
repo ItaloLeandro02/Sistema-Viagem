@@ -5,9 +5,14 @@ function comissaoController(comissaoService) {
 	
     vm                 = this
     data               = []
-    nomes              = []
+    total              = []
+    comissao           = []
+    vm.nomes           = []
     options            = []
-    meses              = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+    vm.meses           = ('Janeiro Fevereiro Março Abril Maio Junho Julho Agosto Setembro Outubro Novembro Dezembro')
+    .split(' ').map(function (mes) { return { abrev: mes }; });
+    vm.chartComissao   = carregaDados
+    vm.filtarPeriodo   = filtarPeriodo
 
 	function init(){
         carregaDados()
@@ -16,46 +21,39 @@ function comissaoController(comissaoService) {
 	init()
 
 	function carregaDados(){
-		comissaoService.getAll().then(function(dados){			
+        options = []
+		comissaoService.getAll().then(function(dados){
+            
+            dados.data.forEach(item => {
+                if (vm.nomes.indexOf(item.nome) == -1) {
+                    vm.nomes.push(item.nome)
+                }
+                total.push(item.total),
+                comissao.push(item.comissao)
+            });
         
-            function extraiData(veiculo) {
-                let faturamentoVeiculo = dados.data.filter(function(item) {
-                    return item.modelo == veiculo
+                options.push({
+                    name : 'Comissão',
+                    data : comissao
+                },
+                {
+                    name: 'Faturamento',
+                    data : total
                 })
-
-                let faturamentoMensal = [0,0,0,0,0,0,0,0,0,0,0,0]
-                faturamentoVeiculo.forEach(function(item, index) {
-                    faturamentoMensal.splice(index, 1, [(item.mes - 1), item.total])
-                })
-
-                return faturamentoMensal
-            }
-                    dados.data.forEach(item => {
-                        if (nomes.indexOf(item.modelo) == -1) {
-                            nomes.push(item.modelo)
-                        }
-                    });
-
-                    nomes.forEach(carro => {
-                        options.push({
-                            name : carro,
-                            data : extraiData(carro)
-                        })
-                    })
-                    chartComissoes()
+            chartComissao()
         })
     }
 
-    function chartComissoes() {
-        Highcharts.chart('comissoes', {
+    function chartComissao() {
+        var chart = Highcharts.chart('comissoes', {
             chart: {
                 type: 'bar'
             },
             title: {
-                text: 'Stacked bar chart'
+                text: 'Comissoes'
             },
             xAxis: {
-                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                categories: vm.nomes
             },
             yAxis: {
                 min: 0,
@@ -71,16 +69,99 @@ function comissaoController(comissaoService) {
                     stacking: 'normal'
                 }
             },
-            series: [{
-                name: 'John',
-                data: [5, 3, 4, 7, 2]
-            }, {
-                name: 'Jane',
-                data: [2, 2, 3, 2, 1]
-            }, {
-                name: 'Joe',
-                data: [3, 4, 4, 2, 5]
-            }]
+            series: options
         });
+    }
+
+    function filtarPeriodo(inicial, final) {
+        options = []
+        options.push({
+            name : 'Comissão',
+            data : comissao
+        },
+        {
+            name: 'Faturamento',
+            data : total
+        })
+
+        // switch (mes) {
+        //     case 'Janeiro':
+        //             count = 1
+        //         break;
+
+        //     case 'Fevereiro':
+        //         count = 2
+        //     break;
+            
+        //     case 'Março':
+        //         count = 3
+        //     break;
+
+        //     case 'Abril':
+        //         count = 4
+        //     break;
+            
+        //     case 'Maio':
+        //         count = 5
+        //     break;
+            
+        //     case 'Junho':
+        //         count = 6
+        //     break;
+            
+        //     case 'Julho':
+        //         count = 7
+        //     break;
+            
+        //     case 'Agosto':
+        //         count = 8
+        //     break;
+
+        //     case 'Setembro':
+        //         count = 9
+        //     break;
+
+        //     case 'Outubro':
+        //         count = 10
+        //     break;
+
+        //     case 'Novembro':
+        //         count = 11
+        //     break;
+
+        //     case 'Dezembro':
+        //         count = 12
+        //     break;    
+        
+        //     default:
+        //         break;
+        // }
+
+        comissaoService.getPeriodo(inicial, final).then(function(dados) {
+            // options     = []
+            // comissao    = []
+            // total       = []
+            // dados.data.forEach(item => {
+            //     if (item.mes == count) {
+            //         //vm.nomes.push(item.nome)
+            //         total.push(item.total),
+            //         comissao.push(item.comissao)
+            //     }
+            //     else {
+            //         comissao.push(0)
+            //         total.push(0)
+            //     }
+            // });
+        
+            //     options.push({
+            //         name : 'Comissão',
+            //         data : comissao
+            //     },
+            //     {
+            //         name: 'Faturamento',
+            //         data : total
+            //     })
+            // chartComissao()
+        })
     }
 }

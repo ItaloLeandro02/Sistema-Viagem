@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using api.Models;
 using api.Views;
@@ -9,7 +10,6 @@ namespace api.Repository
 {
     public class ViagemRepository : IViagemRepository
     {
-        public  DbQuery<DashboardFaturamento> queryViagem{get; set;}
         private readonly DataDbContext _context;
         public ViagemRepository(DataDbContext ctx) 
         {
@@ -59,13 +59,33 @@ namespace api.Repository
                 }
         }
 
-        public IEnumerable<DashboardFaturamento> Dashboard()
-        {
-            // var query = queryViagem.FromSql("SELECT * FROM motorista").DefaultIfEmpty().AsEnumerable();
-            //     return query; 
+        public IEnumerable<DashboardComissao> DashboardComissao(string dataInicial, string dataFinal)
+        {   
 
-            return _context.Teste
-            .FromSql("SELECT  ROW_NUMBER() OVER(ORDER BY ve.modelo ASC) Id, (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo").DefaultIfEmpty().AsEnumerable();
+            var teste = dataInicial.Split("/").Reverse().Join("-");
+
+            Console.WriteLine("jkhjksafhkjashjfkhjkshdfjkhksjldhfjklshdfkjhjksdhfjkhsdjkfhjkshdjkfhskjdhfshdk");
+            Console.WriteLine(teste);
+            Console.WriteLine(dataInicial);
+            Console.WriteLine(dataFinal);
+            return _context.Comissao
+            .FromSql($"SELECT ROW_NUMBER() OVER(ORDER BY mo.nome ASC) Id, NULL Mes, " +
+            "mo.nome Nome, SUM(vi.valorTotalLiquido) Total, (SUM(vi.valorTotalLiquido) * 0.1) Comissao FROM viagem vi JOIN motorista mo " +
+            " ON vi.motoristaId = mo.id WHERE vi.dataChegada BETWEEN  {dataInicial} AND {dataFinal} GROUP BY mo.nome, vi.dataChegada").DefaultIfEmpty().AsEnumerable();
+        }
+
+        public IEnumerable<DashboardComissao> DashboardComissao()
+        {
+            return _context.Comissao
+            .FromSql("SELECT ROW_NUMBER() OVER(ORDER BY mo.nome ASC) Id, NULL Mes, mo.nome Nome, SUM(vi.valorTotalLiquido) Total," +
+            " (SUM(vi.valorTotalLiquido) * 0.1) Comissao FROM viagem vi JOIN motorista mo ON vi.motoristaId = mo.id GROUP BY mo.nome").DefaultIfEmpty().AsEnumerable();
+        }
+
+        public IEnumerable<DashboardFaturamento> DashboardFaturamentoVeiculo()
+        {
+            return _context.Faturamento
+            .FromSql($"SELECT  ROW_NUMBER() OVER(ORDER BY ve.modelo ASC) Id, (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, " +
+            "SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo").DefaultIfEmpty().AsEnumerable();
         }
 
         public Viagem Find(int id)

@@ -4,8 +4,15 @@ angular.module('app.comissao')
     var comissaoFactory = {};
 
     comissaoFactory.getAll = function() {
-        var ds = new api.dados();
+        var ds = new api.comissao();
             return ds.$get()
+    };
+
+    comissaoFactory.getPeriodo = function(inicial, final) {
+        var ds = new api.comissao();
+        console.log('kljdkf')
+        console.log(final)
+            return ds.$get({ dataInicial: inicial.toLocaleDateString(), dataFinal: final.toLocaleDateString() })
     };
 
     return comissaoFactory;

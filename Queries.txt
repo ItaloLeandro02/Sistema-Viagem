@@ -12,4 +12,5 @@ SELECT DISTINCT (SELECT DATEPART ( MONTH, viagem.dataChegada)) Mes, veiculo.mode
 
 
 SELECT (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo ORDER BY (vi.dataChegada) DESC
-SELECT (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo ORDER BY (vi.dataChegada) DESC
+SELECT (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, mo.nome Motorista, SUM(vi.valorTotalLiquido) Total FROM motorista as mo, viagem as vi WHERE mo.id = vi.motoristaId GROUP BY mo.nome, vi.dataChegada ORDER BY (vi.dataChegada) DESC
+SELECT ROW_NUMBER() OVER(ORDER BY mo.nome ASC) Id, (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, mo.nome Nome, SUM(vi.valorTotalLiquido) Total, (SUM(vi.valorTotalLiquido) * 0.1) Comissao FROM viagem vi JOIN motorista mo ON vi.motoristaId = mo.id WHERE vi.dataChegada BETWEEN '2018/01/01' AND '2018-12-31' GROUP BY mo.nome, vi.dataChegada ORDER BY (vi.dataChegada) DESC

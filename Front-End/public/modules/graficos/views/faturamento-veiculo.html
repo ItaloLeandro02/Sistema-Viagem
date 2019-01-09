@@ -1,1 +1,9 @@
 <div id="faturamento-veiculo"></div>
+
+  <md-input-container>
+    <md-select ng-model="modeloVeiculo" placeholder="Selecione o Veiculo">
+      <md-option ng-value="veiculo" ng-repeat="veiculo in vm.nomes">{{ veiculo }}</md-option>
+    </md-select>
+  </md-input-container>
+    <md-button class="md-primary" ng-click="vm.filtarVeiculo(modeloVeiculo)">Filtrar</md-button>
+    <md-button class="md-primary" ng-click="vm.chartFaturamento()">Limpar</md-button>

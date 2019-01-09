@@ -16,12 +16,17 @@
 
       
       /* Recursos da API */ 
-      api.dados   = $resource(api.baseUrl + 'viagem/faturamento-veiculo', {},
+      api.faturamentoVeiculo   = $resource(api.baseUrl + 'viagem/faturamento-veiculo', {},
         {update: {
           method: 'PUT'
         }
       })
 
+      api.comissao   = $resource(api.baseUrl + 'viagem/comissao', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
 
       
 

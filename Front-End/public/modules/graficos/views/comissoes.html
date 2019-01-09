@@ -1,1 +1,18 @@
+<div layout="row" layout-align="center center">
+    <md-input-container>
+        <md-datepicker ng-model="dataInicial"></md-datepicker>
+    </md-input-container>
+    <md-input-container>
+        <md-datepicker ng-model="dataFinal"></md-datepicker>
+    </md-input-container>
+    
+    <md-button class="md-primary" ng-click="vm.filtarPeriodo(dataInicial,dataFinal)">Filtrar</md-button>
+</div>
 <div id="comissoes"></div>
+    <md-input-container>
+        <md-select ng-model="mesSelecionado" placeholder="Selecione o Mes">
+            <md-option ng-value="mes.abrev" ng-repeat="mes in vm.meses">{{ mes.abrev }}</md-option>
+        </md-select>
+    </md-input-container>
+        <md-button class="md-primary" ng-click="vm.filtarPeriodo(mesSelecionado)">Filtrar</md-button>
+        <md-button class="md-primary" ng-click="vm.chartComissao()">Limpar</md-button>

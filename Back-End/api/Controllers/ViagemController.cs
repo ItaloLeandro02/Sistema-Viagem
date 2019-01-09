@@ -41,41 +41,36 @@ namespace api.Controllers
             }
 
             [HttpGet("faturamento-veiculo")]
-            public ActionResult<RetornoView<DashboardFaturamento>> teste()
+            public ActionResult<RetornoView<DashboardFaturamento>> DashboardFaturamentoVeiculo()
             {
-
-                // List<double> list = new List<double>();
-                // List<double> valores = new List<double>();
-                // int idVeiculo = 0;
-
-                // var dados = _viagemRepository.GetAll();
-
-                // foreach (var item in dados)
-                // {
-                //     foreach (var item1 in dados)
-                //     {
-                //         if ((item.VeiculoId == item1.VeiculoId))
-                //         {
-                //             valores.Add(item1.ValorTotalLiquido);
-                //         }
-                //         else 
-                //         {
-                //             valores.Clear();
-                //             idVeiculo = item.Id;
-                //         }
-                //     }
-                //         if (item.Id != idVeiculo) 
-                //         {
-                //             list.Add(valores.Sum());
-                //             valores.Clear();
-                //         }
-                //             valores.Clear();
-                // }
-
                 return Ok (
                     new {
-                        data = _viagemRepository.Dashboard()
+                        data = _viagemRepository.DashboardFaturamentoVeiculo()
                     });
+            }
+
+            [HttpGet("comissao")]
+            public ActionResult<RetornoView<DashboardComissao>> DashboardComissao()
+            {
+
+                string dataInicial  = HttpContext.Request.Query["dataInicial"];
+                string dataFinal    = HttpContext.Request.Query["dataFinal"];
+
+                if (dataInicial == null && dataFinal == null) {
+                    return Ok (
+                    new {
+                        data = _viagemRepository.DashboardComissao()
+                    });
+                }
+                else
+                {
+                    // var teste = dataInicial.Split("");
+                    // var teste2 = dataFinal.Split("");
+                    return Ok (
+                    new {
+                        data = _viagemRepository.DashboardComissao(dataInicial, dataFinal)
+                    });
+                }
             }
 
             [HttpPost]

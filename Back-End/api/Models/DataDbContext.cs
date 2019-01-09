@@ -13,6 +13,7 @@ namespace api.Models
         public DbSet<CidadeIbge> CidadeIbge { get; set; }
         public DbSet<Viagem> Viagem { get; set; }
         public DbSet<ViagemDespesa> ViagemDespesa { get; set; }
-        public DbSet<DashboardFaturamento> Teste { get; set; }
+        public DbSet<DashboardFaturamento> Faturamento { get; set; }
+        public DbSet<DashboardComissao> Comissao { get; set; }
     }
 }

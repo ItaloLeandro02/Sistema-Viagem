@@ -4,7 +4,7 @@ angular.module('app.faturamento')
     var faturamentoFactory = {};
 
     faturamentoFactory.getAll = function() {
-        var ds = new api.dados();
+        var ds = new api.faturamentoVeiculo();
             return ds.$get()
     };
 
