@@ -11,6 +11,8 @@ namespace api.Repository
         IEnumerable<DashboardFaturamento> DashboardFaturamentoVeiculo();
         IEnumerable<DashboardComissao> DashboardComissao(string dataInicial, string dataFinal);
         IEnumerable<DashboardComissao> DashboardComissao();
+        IEnumerable<DashboardFaturamentoUf> DashboardFaturamentoUf(string dataInicial, string dataFinal);
+        IEnumerable<DashboardMapaBrasil> DashboardMapaBrasil();
         Viagem Find(int id);
         void Remove(int id);
         void Update(Viagem form, Viagem banco);

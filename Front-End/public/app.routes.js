@@ -39,6 +39,15 @@ router.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             params: {
                 title: "Faturamento UF"
             }
+        })
+        .state('mapa-brasil', {
+            url: '/mapa-brasil',
+            templateUrl: '/modules/graficos/views/mapa-brasil.html',
+            controller: 'MapaBrasilController',
+            controllerAs: 'vm',
+            params: {
+                title: "Dados Por UF"
+            }
         });
 
     $locationProvider.html5Mode(true);

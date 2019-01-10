@@ -61,30 +61,48 @@ namespace api.Repository
 
         public IEnumerable<DashboardComissao> DashboardComissao(string dataInicial, string dataFinal)
         {   
-
-            Console.WriteLine("jkhjksafhkjashjfkhjkshdfjkhksjldhfjklshdfkjhjksdhfjkhsdjkfhjkshdjkfhskjdhfshdk");
-            //Console.WriteLine(teste);
-            Console.WriteLine(dataInicial);
-            Console.WriteLine(dataFinal);
-            Console.WriteLine("{{dataInicial}}");
             return _context.Comissao
             .FromSql("SELECT ROW_NUMBER() OVER(ORDER BY mo.nome ASC) Id, NULL Mes, " +
             "mo.nome Nome, SUM(vi.valorTotalLiquido) Total, (SUM(vi.valorTotalLiquido) * 0.1) Comissao FROM viagem vi JOIN motorista mo " +
-            " ON vi.motoristaId = mo.id WHERE vi.dataChegada BETWEEN '" + dataInicial + "' AND '" + dataFinal + "' GROUP BY mo.nome").DefaultIfEmpty().AsEnumerable();
+            " ON vi.motoristaId = mo.id WHERE vi.dataChegada BETWEEN '" + dataInicial + "' AND '" + dataFinal + "' GROUP BY mo.nome")
+            .DefaultIfEmpty()
+            .AsEnumerable();
         }
 
         public IEnumerable<DashboardComissao> DashboardComissao()
         {
             return _context.Comissao
             .FromSql("SELECT ROW_NUMBER() OVER(ORDER BY mo.nome ASC) Id, NULL Mes, mo.nome Nome, SUM(vi.valorTotalLiquido) Total," +
-            " (SUM(vi.valorTotalLiquido) * 0.1) Comissao FROM viagem vi JOIN motorista mo ON vi.motoristaId = mo.id GROUP BY mo.nome").DefaultIfEmpty().AsEnumerable();
+            " (SUM(vi.valorTotalLiquido) * 0.1) Comissao FROM viagem vi JOIN motorista mo ON vi.motoristaId = mo.id GROUP BY mo.nome")
+            .DefaultIfEmpty()
+            .AsEnumerable();
+        }
+
+        public IEnumerable<DashboardFaturamentoUf> DashboardFaturamentoUf(string dataInicial, string dataFinal)
+        {
+            return _context.FaturamentoUf
+            .FromSql("SELECT ROW_NUMBER() OVER(ORDER BY ci.uf ASC) Id, SUM(vi.valorTotalBruto) Faturamento, SUM(vi.valorTotalDespesa) Despesa, ci.uf Uf" +
+            " FROM viagem vi JOIN cidadeibge ci ON vi.destinoCidadeId = ci.id WHERE vi.dataChegada BETWEEN '" + dataInicial + "' AND '" + dataFinal + "' GROUP BY ci.uf")
+            .DefaultIfEmpty()
+            .AsEnumerable();
         }
 
         public IEnumerable<DashboardFaturamento> DashboardFaturamentoVeiculo()
         {
             return _context.Faturamento
             .FromSql($"SELECT  ROW_NUMBER() OVER(ORDER BY ve.modelo ASC) Id, (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, " +
-            "SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo").DefaultIfEmpty().AsEnumerable();
+            "SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo").
+            DefaultIfEmpty()
+            .AsEnumerable();
+        }
+
+        public IEnumerable<DashboardMapaBrasil> DashboardMapaBrasil()
+        {
+            return _context.MapaBrasil
+            .FromSql("SELECT ROW_NUMBER() OVER(ORDER BY ci.uf ASC) Id, SUM(vi.valorTotalBruto) Faturamento," +
+            " SUM(vi.valorTotalDespesa) Despesa, SUM(vi.valorTotalLiquido) Liquido, ci.uf Uf FROM viagem vi JOIN cidadeibge ci ON vi.destinoCidadeId = ci.id  GROUP BY ci.uf")
+            .DefaultIfEmpty()
+            .AsEnumerable();
         }
 
         public Viagem Find(int id)

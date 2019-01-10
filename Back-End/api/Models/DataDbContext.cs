@@ -15,5 +15,7 @@ namespace api.Models
         public DbSet<ViagemDespesa> ViagemDespesa { get; set; }
         public DbSet<DashboardFaturamento> Faturamento { get; set; }
         public DbSet<DashboardComissao> Comissao { get; set; }
+        public DbSet<DashboardFaturamentoUf> FaturamentoUf { get; set; }
+        public DbSet<DashboardMapaBrasil> MapaBrasil { get; set; }
     }
 }

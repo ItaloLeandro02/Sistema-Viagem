@@ -7,7 +7,8 @@ var materialApp = angular
     'appCtrl',
     'app.faturamento-veiculo',
     'app.comissao',
-    'app.faturamento-uf'   
+    'app.faturamento-uf',
+    'app.mapa-brasil' 
     
 
 ]).config(function($mdThemingProvider) {

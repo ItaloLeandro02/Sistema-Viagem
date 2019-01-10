@@ -64,13 +64,33 @@ namespace api.Controllers
                 }
                 else
                 {
-                    // var teste = dataInicial.Split("");
-                    // var teste2 = dataFinal.Split("");
                     return Ok (
                     new {
                         data = _viagemRepository.DashboardComissao(dataInicial, dataFinal)
                     });
                 }
+            }
+
+            [HttpGet("faturamento-uf")]
+            public ActionResult<RetornoView<DashboardFaturamentoUf>> DashboardFaturamentoUf()
+            {
+
+                string dataInicial  = HttpContext.Request.Query["dataInicial"];
+                string dataFinal    = HttpContext.Request.Query["dataFinal"];
+
+                    return Ok (
+                    new {
+                        data = _viagemRepository.DashboardFaturamentoUf(dataInicial, dataFinal)
+                    });
+            }
+
+            [HttpGet("mapa-brasil")]
+            public ActionResult<RetornoView<DashboardMapaBrasil>> DashboardMapaBrasil()
+            {
+                return Ok (
+                new {
+                    data = _viagemRepository.DashboardMapaBrasil()
+                });
             }
 
             [HttpPost]

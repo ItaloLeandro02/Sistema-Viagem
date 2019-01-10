@@ -28,7 +28,18 @@
         }
       })
 
-      
+      api.faturamentoUf   = $resource(api.baseUrl + 'viagem/faturamento-uf', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
+      api.mapaBrasil   = $resource(api.baseUrl + 'viagem/mapa-brasil', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
 
       return api;
     }
