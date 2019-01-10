@@ -62,16 +62,15 @@ namespace api.Repository
         public IEnumerable<DashboardComissao> DashboardComissao(string dataInicial, string dataFinal)
         {   
 
-            var teste = dataInicial.Split("/").Reverse().Join("-");
-
             Console.WriteLine("jkhjksafhkjashjfkhjkshdfjkhksjldhfjklshdfkjhjksdhfjkhsdjkfhjkshdjkfhskjdhfshdk");
-            Console.WriteLine(teste);
+            //Console.WriteLine(teste);
             Console.WriteLine(dataInicial);
             Console.WriteLine(dataFinal);
+            Console.WriteLine("{{dataInicial}}");
             return _context.Comissao
-            .FromSql($"SELECT ROW_NUMBER() OVER(ORDER BY mo.nome ASC) Id, NULL Mes, " +
+            .FromSql("SELECT ROW_NUMBER() OVER(ORDER BY mo.nome ASC) Id, NULL Mes, " +
             "mo.nome Nome, SUM(vi.valorTotalLiquido) Total, (SUM(vi.valorTotalLiquido) * 0.1) Comissao FROM viagem vi JOIN motorista mo " +
-            " ON vi.motoristaId = mo.id WHERE vi.dataChegada BETWEEN  {dataInicial} AND {dataFinal} GROUP BY mo.nome, vi.dataChegada").DefaultIfEmpty().AsEnumerable();
+            " ON vi.motoristaId = mo.id WHERE vi.dataChegada BETWEEN '" + dataInicial + "' AND '" + dataFinal + "' GROUP BY mo.nome").DefaultIfEmpty().AsEnumerable();
         }
 
         public IEnumerable<DashboardComissao> DashboardComissao()

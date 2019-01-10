@@ -40,12 +40,17 @@
         <md-divider></md-divider>
     
         <md-list-item layout="row" ng-click="app.toggleLeft()" href="/faturamento-veiculo">
-            <span>Faturamento Por Veiculo</span>
+            <span>Faturamento Veicular</span>
         </md-list-item>
         <md-divider></md-divider>
        
         <md-list-item layout="row" ng-click="app.toggleLeft()" href="/comissoes">
             <span>Comissões</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="app.toggleLeft()" href="/faturamento-uf">
+            <span>Faturamento UF</span>
         </md-list-item>
         <md-divider></md-divider>
     
@@ -119,11 +124,14 @@
 
 <script type="text/javascript" src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-<script src="modules/graficos/controllers/faturamento.controller.js"></script>
-<script src="modules/graficos/services/faturamento.service.js"></script>
+<script src="modules/graficos/controllers/faturamento-veiculo.controller.js"></script>
+<script src="modules/graficos/services/faturamento-veiculo.service.js"></script>
 
 <script src="modules/graficos/controllers/comissao.controller.js"></script>
 <script src="modules/graficos/services/comissao.service.js"></script>
+
+<script src="modules/graficos/controllers/faturamento-uf.js"></script>
+<script src="modules/graficos/services/faturamento-uf.service.js"></script>
 
 <script src="app.controller.js"></script>
 

@@ -1,7 +1,7 @@
-angular.module('app.faturamento', [])
-.controller('FaturamentoController', faturamentoController);
+angular.module('app.faturamento-uf', [])
+.controller('FaturamentoUfController', faturamentoUfController);
 
-function faturamentoController(faturamentoService) {
+function faturamentoUfController(faturamentoUfService) {
 	
     vm                      = this
     data                    = []
@@ -19,9 +19,10 @@ function faturamentoController(faturamentoService) {
 	init()
 
 	function carregaDados(){
+        /*
         options = []
 
-            faturamentoService.getAll().then(function(dados){
+        faturamentoUfService.getAll().then(function(dados){
 
                 vm.extraiData = extraiData
                 
@@ -52,12 +53,14 @@ function faturamentoController(faturamentoService) {
                         })
                         chartFaturamento()
         })
+        */
+       chartFaturamentoUf()
     }
 
-    function chartFaturamento() {
-        var grafico = Highcharts.chart('faturamento-veiculo', {
+    function chartFaturamentoUf() {
+        var grafico = Highcharts.chart('faturamento-uf', {
             chart: {
-                type: 'column'
+                type: 'area'
             },
             title: {
                 text: 'Faturamento Por Veiculo',

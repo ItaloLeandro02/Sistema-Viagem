@@ -21,7 +21,9 @@ function comissaoController(comissaoService) {
 	init()
 
 	function carregaDados(){
-        options = []
+        options     = []
+        comissao    = []
+        total       = []
 		comissaoService.getAll().then(function(dados){
             
             dados.data.forEach(item => {
@@ -84,84 +86,34 @@ function comissaoController(comissaoService) {
             data : total
         })
 
-        // switch (mes) {
-        //     case 'Janeiro':
-        //             count = 1
-        //         break;
-
-        //     case 'Fevereiro':
-        //         count = 2
-        //     break;
-            
-        //     case 'Março':
-        //         count = 3
-        //     break;
-
-        //     case 'Abril':
-        //         count = 4
-        //     break;
-            
-        //     case 'Maio':
-        //         count = 5
-        //     break;
-            
-        //     case 'Junho':
-        //         count = 6
-        //     break;
-            
-        //     case 'Julho':
-        //         count = 7
-        //     break;
-            
-        //     case 'Agosto':
-        //         count = 8
-        //     break;
-
-        //     case 'Setembro':
-        //         count = 9
-        //     break;
-
-        //     case 'Outubro':
-        //         count = 10
-        //     break;
-
-        //     case 'Novembro':
-        //         count = 11
-        //     break;
-
-        //     case 'Dezembro':
-        //         count = 12
-        //     break;    
-        
-        //     default:
-        //         break;
-        // }
-
         comissaoService.getPeriodo(inicial, final).then(function(dados) {
-            // options     = []
-            // comissao    = []
-            // total       = []
-            // dados.data.forEach(item => {
-            //     if (item.mes == count) {
-            //         //vm.nomes.push(item.nome)
-            //         total.push(item.total),
-            //         comissao.push(item.comissao)
-            //     }
-            //     else {
-            //         comissao.push(0)
-            //         total.push(0)
-            //     }
-            // });
+            options     = []
+            comissao    = []
+            total       = []
+                dados.data.forEach(item => {
+                        if (item == null)
+                        {
+                            total.push(0),
+                            comissao.push(0)
+                        }
+                        else 
+                        {
+                            total.push(item.total),
+                            comissao.push(item.comissao)
+                        }
+                        
+                });
         
-            //     options.push({
-            //         name : 'Comissão',
-            //         data : comissao
-            //     },
-            //     {
-            //         name: 'Faturamento',
-            //         data : total
-            //     })
-            // chartComissao()
+                options.push(
+                    {
+                        name : 'Comissão',
+                        data : comissao
+                    },
+                    {
+                        name: 'Faturamento',
+                        data : total
+                    })
+                    chartComissao()
         })
     }
 }

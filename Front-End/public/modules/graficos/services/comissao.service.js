@@ -10,8 +10,6 @@ angular.module('app.comissao')
 
     comissaoFactory.getPeriodo = function(inicial, final) {
         var ds = new api.comissao();
-        console.log('kljdkf')
-        console.log(final)
             return ds.$get({ dataInicial: inicial.toLocaleDateString(), dataFinal: final.toLocaleDateString() })
     };
 
