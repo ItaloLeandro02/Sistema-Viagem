@@ -9,6 +9,7 @@ function mapaBrasilController(mapaBrasilService) {
     liquido            = []
     estados            = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO"]
     options            = []
+    indices            = []
 
 
 	function init(){
@@ -21,25 +22,22 @@ function mapaBrasilController(mapaBrasilService) {
         mapaBrasilService.getAll().then(function(dados){
             
             estados.forEach(function(item, index){
-                
-                if (dados.data[index]) {
-                    uf = dados.data[index].uf.toLowerCase()
 
-                    faturamento.push([('br-' + uf), dados.data[index].faturamento]),
-                    despesa.push(dados.data[index].despesa),
-                    liquido.push(dados.data[index].liquido)
-                }
-                else {
-                    uf = item.toLowerCase()
-
+                uf = item.toLowerCase()
+                    
                     faturamento.push([('br-' + uf), 0]),
                     despesa.push(0),
                     liquido.push(0)
-                }
+
+                        dados.data.forEach(element => {
+                            if (element.uf.toLowerCase() == uf) {
+                                faturamento.splice(index, 1, ['br-' + element.uf.toLowerCase(), element.faturamento])
+                                despesa.splice(index, 1, element.despesa),
+                                liquido.splice(index, 1, element.liquido)
+                            }
+                        })
             });
 
-            console.log(despesa)
-        
                 options.push({
                     data : faturamento,
                     states: {
@@ -56,10 +54,9 @@ function mapaBrasilController(mapaBrasilService) {
                 chartMapaBrasil()
         })
     }
-    console.log(faturamento)
+
     function chartMapaBrasil() {
         
-        // Create the chart
         Highcharts.mapChart('mapa-brasil', {
             chart: {
                 map: 'countries/br/br-all'
