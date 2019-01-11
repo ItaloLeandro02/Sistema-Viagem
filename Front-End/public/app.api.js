@@ -40,6 +40,30 @@
         }
       })
 
+      api.mapaBrasil   = $resource(api.baseUrl + 'viagem/mapa-brasil', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
+      api.motorista   = $resource(api.baseUrl + 'motorista', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
+      api.veiculo   = $resource(api.baseUrl + 'veiculo', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
+      api.viagem   = $resource(api.baseUrl + 'viagem', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
 
       return api;
     }

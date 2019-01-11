@@ -1,0 +1,50 @@
+<form name="vm.form">
+    <div layout="row" layout-aling="center center">
+        <div> 
+            <md-input-container>
+                <img src="assets/img/car.svg" style="width: 350px;;">
+            </md-input-container>
+        </div>
+        <div style="margin-left: 150px; margin-top: 50px;">
+            <md-content layout-gt-sm="column" layout-padding>
+                <div>
+                    <md-input-container>
+                        <label>Fabricante</label>
+                            <input required ng-model="vm.fabricante" name="nome" minlength ="3">
+                                <div ng-messages="vm.form.nome.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                    <div ng-message="minlength">No mínimo 3 caracteres.</div>
+                                </div>
+                    </md-input-container>
+                        
+                    <md-input-container>
+                        <label>Modelo</label>
+                            <input required name="modelo" ng-model="vm.modelo">
+                                <div ng-messages="vm.form.modelo.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Ano Fabricação</label>
+                            <input required name="anoFabricacao" ng-model="vm.anoFabricacao">
+                                <div ng-messages="vm.form.nome.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Ano Modelo</label>
+                            <input required name="anoModelo" ng-model="vm.anoModelo">
+                                <div ng-messages="vm.form.nome.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                    </md-input-container>
+                </div>
+            </md-content>
+                <div layout="row" layout-align="center end">
+                    <md-button class="md-raised" type="reset">Limpar</md-button>
+                    <md-button class="md-raised md-primary" type="submit" ng-click="vm.novo(vm.fabricante, vm.modelo, vm.anoFabricacao, vm.anoModelo)">Primary</md-button>
+                </div>
+    </div>
+</form>

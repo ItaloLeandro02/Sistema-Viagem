@@ -4,16 +4,20 @@ var materialApp = angular
     'ui.router',
     'ngMaterial',
     'ngResource',
+    'ngMessages',
     'appCtrl',
     'app.faturamento-veiculo',
     'app.comissao',
     'app.faturamento-uf',
-    'app.mapa-brasil' 
+    'app.mapa-brasil',
+    'app.motorista',
+    'app.veiculo',
+    'app.viagem'
     
 
 ]).config(function($mdThemingProvider) {
   
     $mdThemingProvider.theme('default')
-    .primaryPalette('deep-orange')
+    .primaryPalette('blue')
     .accentPalette('orange');
 });

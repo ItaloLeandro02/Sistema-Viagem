@@ -48,7 +48,35 @@ router.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             params: {
                 title: "Dados Por UF"
             }
+        })
+        .state('novo-motorista', {
+            url: '/novo-motorista',
+            templateUrl: '/modules/motorista/views/novo-motorista.html',
+            controller: 'MotoristaController',
+            controllerAs: 'vm',
+            params: {
+                title: "Novo Motorista"
+            }
+        })
+        .state('novo-veiculo', {
+            url: '/novo-veiculo',
+            templateUrl: '/modules/veiculo/views/novo-veiculo.html',
+            controller: 'VeiculoController',
+            controllerAs: 'vm',
+            params: {
+                title: "Novo Veiculo"
+            }
+        })
+        .state('nova-viagem', {
+            url: '/nova-viagem',
+            templateUrl: '/modules/viagem/views/nova-viagem.html',
+            controller: 'ViagemController',
+            controllerAs: 'vm',
+            params: {
+                title: "Nova Viagem"
+            }
         });
+
 
     $locationProvider.html5Mode(true);
 

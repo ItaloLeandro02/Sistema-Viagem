@@ -1,0 +1,31 @@
+<form name="vm.form">
+    <div layout="row" layout-aling="center center">
+        <div> 
+            <md-input-container>
+                <img src="assets/img/driver.svg"  style="width: 350px;;">
+            </md-input-container>
+        </div>
+        <div style="margin-left: 150px; margin-top: 100px;">
+            <md-content layout-gt-sm="column" layout-padding>
+                <div>
+                    <md-input-container>
+                        <label>Nome</label>
+                            <input required ng-model="vm.nome" name="nome" minlength ="3">
+                                <div ng-messages="vm.form.nome.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                    <div ng-message="minlength">No mínimo 3 caracteres.</div>
+                                </div>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Apelido</label>
+                        <input ng-model="vm.apelido">
+                    </md-input-container>
+                </div>
+            </md-content>
+                <div layout="row" layout-align="end">
+                    <md-button class="md-raised" type="reset">Limpar</md-button>
+                    <md-button class="md-raised md-primary" type="submit" ng-click="vm.novo(vm.nome, vm.apelido)">Primary</md-button>
+                </div>
+    </div>
+</form>
