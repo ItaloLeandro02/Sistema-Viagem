@@ -143,22 +143,6 @@ namespace api.Repository
             {
                 try
                 {
-                    if (form.despesas != null) 
-                    {
-                        banco.ValorTotalDespesa = 0;
-                        
-                        for (int i = 0; i < form.despesas.Count(); i++)
-                        {
- 
-                        banco.despesas[i].DataLancamento  = form.despesas[i].DataLancamento;
-                        banco.despesas[i].Historico       = form.despesas[i].Historico;
-                        banco.despesas[i].Valor           = form.despesas[i].Valor;
-
-                        banco.ValorTotalDespesa += form.despesas[i].Valor;
-                        }
-                    }
-
-                    //Confirmar quais dados serão atualizados
                     banco.OrigemCidadeId            = form.OrigemCidadeId;
                     banco.DestinoCidadeId           = form.DestinoCidadeId;
                     banco.MotoristaId               = form.MotoristaId;
@@ -170,9 +154,9 @@ namespace api.Repository
                     banco.ValorTotalBruto   = (banco.ToneladaCarga * banco.ToneladaPrecoUnitario);
                     banco.ValorTotalLiquido = (banco.ValorTotalBruto - banco.ValorTotalDespesa);
 
-                        _context.Viagem.Update(banco);
-                        _context.SaveChanges();
-                        transaction.Commit();
+                    _context.Viagem.Update(banco);
+                    _context.SaveChanges();
+                    transaction.Commit();
                 }
                 //Preciso tratar para não precisar retornar erro 500
                 catch (Exception e) 

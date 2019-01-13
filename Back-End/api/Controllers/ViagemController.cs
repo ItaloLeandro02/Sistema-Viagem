@@ -19,10 +19,7 @@ namespace api.Controllers
             [HttpGet]
             public ActionResult<RetornoView<Viagem>> GetAll()
             {
-                return Ok (
-                    new {
-                        data = _viagemRepository.GetAll()
-                    });
+                return Ok (new {data = _viagemRepository.GetAll()});
             }
 
             [HttpGet("{id}", Name = "GetViagem")]
@@ -30,23 +27,17 @@ namespace api.Controllers
             {
                 var viagem = _viagemRepository.Find(id);
 
-                    if (viagem == null)
-                    {
-                        return NotFound();
-                    }
-                        return Ok(
-                            new {
-                                data = viagem
-                        });
+                if (viagem == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new {data = viagem});
             }
 
             [HttpGet("faturamento-veiculo")]
             public ActionResult<RetornoView<DashboardFaturamento>> DashboardFaturamentoVeiculo()
             {
-                return Ok (
-                    new {
-                        data = _viagemRepository.DashboardFaturamentoVeiculo()
-                    });
+                return Ok (new {data = _viagemRepository.DashboardFaturamentoVeiculo()});
             }
 
             [HttpGet("comissao")]
@@ -57,17 +48,11 @@ namespace api.Controllers
                 string dataFinal    = HttpContext.Request.Query["dataFinal"];
 
                 if (dataInicial == null && dataFinal == null) {
-                    return Ok (
-                    new {
-                        data = _viagemRepository.DashboardComissao()
-                    });
+                    return Ok (new {data = _viagemRepository.DashboardComissao()});
                 }
                 else
                 {
-                    return Ok (
-                    new {
-                        data = _viagemRepository.DashboardComissao(dataInicial, dataFinal)
-                    });
+                    return Ok (new {data = _viagemRepository.DashboardComissao(dataInicial, dataFinal)});
                 }
             }
 
@@ -78,19 +63,13 @@ namespace api.Controllers
                 string dataInicial  = HttpContext.Request.Query["dataInicial"];
                 string dataFinal    = HttpContext.Request.Query["dataFinal"];
 
-                    return Ok (
-                    new {
-                        data = _viagemRepository.DashboardFaturamentoUf(dataInicial, dataFinal)
-                    });
+                return Ok (new {data = _viagemRepository.DashboardFaturamentoUf(dataInicial, dataFinal)});
             }
 
             [HttpGet("mapa-brasil")]
             public ActionResult<RetornoView<DashboardMapaBrasil>> DashboardMapaBrasil()
             {
-                return Ok (
-                new {
-                    data = _viagemRepository.DashboardMapaBrasil()
-                });
+                return Ok (new {data = _viagemRepository.DashboardMapaBrasil()});
             }
 
             [HttpPost]
@@ -169,6 +148,21 @@ namespace api.Controllers
                 {
                     return NotFound();
                 }
+
+                if (viagem.despesas != null) 
+                {
+                    _viagem.ValorTotalDespesa = 0;
+                    
+                    for (int i = 0; i < viagem.despesas.Count(); i++)
+                    {
+
+                    _viagem.despesas[i].DataLancamento  = viagem.despesas[i].DataLancamento;
+                    _viagem.despesas[i].Historico       = viagem.despesas[i].Historico;
+                    _viagem.despesas[i].Valor           = viagem.despesas[i].Valor;
+
+                    _viagem.ValorTotalDespesa += viagem.despesas[i].Valor;
+                    }
+                }
                 //viagem     = variável vinda do form
                 //_viagem    = variável vinda do banco
                 _viagemRepository.Update(viagem, _viagem);
@@ -190,22 +184,22 @@ namespace api.Controllers
             {
                 var viagem  = _viagemRepository.Find(id);
 
-                    if (viagem == null) 
-                    {
-                        return NotFound();
-                    }
-                        _viagemRepository.Remove(id);
+                if (viagem == null) 
+                {
+                    return NotFound();
+                }
+                _viagemRepository.Remove(id);
                         
-                            if (_viagemRepository.Find(id) == null) 
-                            {
-                                var resultado = new RetornoView<Viagem>() { sucesso = true };
-                                    return resultado;
-                            }
-                            else 
-                            {
-                                var resultado = new RetornoView<Viagem>() { sucesso = false };
-                                    return resultado;
-                            }
+                if (_viagemRepository.Find(id) == null) 
+                {
+                    var resultado = new RetornoView<Viagem>() { sucesso = true };
+                    return resultado;
+                }
+                else 
+                {
+                    var resultado = new RetornoView<Viagem>() { sucesso = false };
+                    return resultado;
+                }
             }
     }
 }

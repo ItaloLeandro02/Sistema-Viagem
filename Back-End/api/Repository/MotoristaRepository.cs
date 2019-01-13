@@ -15,12 +15,8 @@ namespace api.Repository
         }
         public void Add(Motorista motorista)
         {
-            //Verifica se o nome tem no mínimo 3 caracteres
-            if (motorista.Nome.Length < 3) 
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                return;
-            }
-            var transaction = _context.Database.BeginTransaction();
                 try 
                 {
                     //Caso o apelido não seja informado receberá o primeiro nome
@@ -47,6 +43,7 @@ namespace api.Repository
                     transaction.Rollback();
                     return;
                 }
+            }
         }
 
         public Motorista Find(int id)
@@ -61,7 +58,8 @@ namespace api.Repository
 
         public void Remove(int id)
         {
-            var transaction = _context.Database.BeginTransaction();
+            using (var transaction = _context.Database.BeginTransaction())
+            {
                 try 
                 {
                     var motorista = _context.Motorista.First(u => u.Id == id);
@@ -76,24 +74,15 @@ namespace api.Repository
                     transaction.Rollback();
                     return;
                 }
+            }
         }
 
         public void Update(Motorista form, Motorista banco)
         {
-            var transaction = _context.Database.BeginTransaction();
+            using (var transaction = _context.Database.BeginTransaction())
+            {
                 try 
                 {
-                    //Caso o apelido não seja informado receberá o primeiro nome
-                    //Apenas um teste, procurar um forma melhor de realizar este procedimento
-                    if (string.IsNullOrEmpty(form.Apelido)) 
-                    {
-                        string[] nome = form.Nome.Split(" ");
-                            for (int i = 0; i < nome.Length; i++)
-                            {
-                                form.Apelido = nome[0];    
-                            }
-                    }
-
                     banco.Nome       = form.Nome;
                     banco.Apelido    = form.Apelido;
                     banco.Desativado = form.Desativado;
@@ -108,6 +97,7 @@ namespace api.Repository
                     transaction.Rollback();
                     throw new System.Net.WebException (string.Format("Falha ao atualizar dados do motorista"));
                 }
+            }
         }
     }
 }

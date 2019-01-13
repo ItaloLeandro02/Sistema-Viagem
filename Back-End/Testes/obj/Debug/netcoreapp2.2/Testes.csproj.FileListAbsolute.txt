@@ -15,3 +15,20 @@ C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\De
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.csprojAssemblyReference.cache
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.csproj.CoreCompileInputs.cache
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.AssemblyInfoInputs.cache
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.AssemblyInfo.cs
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.dll
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.pdb
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.deps.json
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.runtimeconfig.json
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.runtimeconfig.dev.json
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.dll
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.pdb
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\api.dll
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\api.pdb
+c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.csproj.CopyComplete
