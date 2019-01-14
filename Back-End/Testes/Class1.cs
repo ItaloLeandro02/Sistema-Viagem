@@ -1,45 +1,44 @@
 ﻿using System;
 using api.Models;
 using api.Repository;
+using api.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Shouldly;
 using Xunit;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using System.Net.Http;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.Testes
 {
-    public class Class1
+    public class Class1  
     {
-        public Class1()
+       private readonly HttpClient _client;
+       public Class1()
+       {
+           var server  = new TestServer(new WebHostBuilder()
+                .UseEnvironment("Development")
+                .UseStartup<Startup>());
+
+            _client = server.CreateClient();
+       }
+
+        [Theory]
+        [InlineData("GET")]
+        public ActionResult<RetornoView<Motorista>> MotoristaGetAllTest(string method)
         {
-            
-        }
-        [Fact]
-        public void PassingTest()
-        {
-            var motorista = new Motorista()
-            {
-                Nome = ""
-            };
+            //Arrange
+            var request = new HttpRequestMessage(new HttpMethod(method), "/api");
 
-            var motoristaRepository = new Mock<IMotoristaRepository>();
+            //Act
+            var response = _client.SendAsync(request);
 
-            motoristaRepository.Setup(x => x.Add(motorista)); //no return as it's a void method
-            motoristaRepository.Object.Add(motorista);
-            motoristaRepository.Verify(x => x.Add(motorista), Times.Once()); //Assert that the Add method was called once
-        }
-
-        [Fact]
-        public void Get_Person_By_Id()
-        {
-        var motorista = new Motorista { Id = 1};
-        var motoristaRepository = new Mock<IMotoristaRepository>();
-
-        motoristaRepository.Setup(x => x.Find(1))
-        .Returns(motorista); //return Person
-        motoristaRepository.Object.Find(1).ShouldBe(motorista); //Assert expected value equal to actual value
-        motoristaRepository.Verify(x => x.Find(motorista.Id), Times.Once()); //Assert that the Get method was called once
-
+            //Assert
+            response.EnsureSuccessStatusCode();
         }
     }
 }
