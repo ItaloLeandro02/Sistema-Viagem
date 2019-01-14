@@ -1,0 +1,6 @@
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.1\api.csprojAssemblyReference.cache
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.1\api.csproj.CoreCompileInputs.cache
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.1\api.RazorAssemblyInfo.cache
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.1\api.RazorAssemblyInfo.cs
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.1\api.AssemblyInfoInputs.cache
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.1\api.AssemblyInfo.cs
