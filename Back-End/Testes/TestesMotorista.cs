@@ -10,11 +10,11 @@ using api.Controllers;
 
 namespace api.Testes
 {
-    public class Class1
+    public class TestesMotorista
     {
         private readonly DataDbContext context;
         private readonly MotoristaController controller;
-        public Class1()
+        public TestesMotorista()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
             optionsBuilder.UseSqlServer("Server=ADSTDFDES08; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
@@ -47,6 +47,42 @@ namespace api.Testes
             controller.Create(motorista);
 
             Assert.Equal(0, motorista.Id);
+        }
+        [Fact]
+        public void naoDeveSalvar_objeto_null()
+        {
+            var motorista = new Motorista();
+        
+            controller.Create(motorista);
+
+            Assert.Equal(0, motorista.Id);
+        }
+
+        [Fact]
+        public void naoDeveSalvar_campos_obrigatorios()
+        {
+            var motorista = new Motorista()
+            {
+                Apelido = "aasssss",
+            };
+
+            controller.Create(motorista);
+
+            Assert.Equal(0, motorista.Id);
+        }
+        [Fact]
+        public void deveSalvar_campos_obrigatorios()
+        {
+            var motorista = new Motorista()
+            {
+                Nome = "Teste Unitário",
+                Apelido = "Unitário"
+
+            };
+
+            controller.Create(motorista);
+
+            Assert.NotEqual(0, motorista.Id);
         }
     }
 }
