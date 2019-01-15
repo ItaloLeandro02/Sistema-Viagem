@@ -2,14 +2,15 @@
 using api.Models;
 using api.Repository;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq;
 using api.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace api.Testes
 {
+    [TestClass]
     public class TestesMotorista
     {
         private readonly DataDbContext context;
@@ -23,7 +24,7 @@ namespace api.Testes
             controller = new MotoristaController(repository);
         }        
            
-        [Fact]
+        [TestMethod]
         public void deveSalvar_nomeValido()
         {
             var motorista = new Motorista()
@@ -33,10 +34,10 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.NotEqual(0, motorista.Id);
+            Assert.AreNotEqual(0, motorista.Id);
         }
 
-        [Fact]
+        [TestMethod]
         public void naoDeveSalvar_nome_menor_3_caracteres()
         {
             var motorista = new Motorista()
@@ -46,19 +47,19 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.Equal(0, motorista.Id);
+            Assert.AreEqual(0, motorista.Id);
         }
-        [Fact]
+        [TestMethod]
         public void naoDeveSalvar_objeto_null()
         {
             var motorista = new Motorista();
         
             controller.Create(motorista);
 
-            Assert.Equal(0, motorista.Id);
+            Assert.AreEqual(0, motorista.Id);
         }
 
-        [Fact]
+        [TestMethod]
         public void naoDeveSalvar_campos_obrigatorios()
         {
             var motorista = new Motorista()
@@ -68,9 +69,9 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.Equal(0, motorista.Id);
+            Assert.AreEqual(0, motorista.Id);
         }
-        [Fact]
+        [TestCategory("Bugs"), TestMethod]
         public void deveSalvar_campos_obrigatorios()
         {
             var motorista = new Motorista()
@@ -82,7 +83,7 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.NotEqual(0, motorista.Id);
+            Assert.AreNotEqual(0, motorista.Id);
         }
     }
 }
