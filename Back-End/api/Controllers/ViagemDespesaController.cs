@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+/* using Microsoft.AspNetCore.Mvc;
 using api.Repository;
 using api.Models;
 
@@ -13,84 +13,92 @@ namespace api.Controllers
         {
             _despesaRepository = despesaRepository;
         }
-            [HttpPost]
-            public ActionResult<RetornoView<ViagemDespesa>> Create([FromBody] ViagemDespesa despesa)
+        [HttpPost]
+        public ActionResult<RetornoView<ViagemDespesa>> Create([FromBody] ViagemDespesa despesa)
+        {
+            if (despesa == null)
             {
-                if (despesa == null)
-                {
-                    return BadRequest();
-                }
-                    _despesaRepository.Add(despesa);
-
-                        if (despesa.Id > 0) 
-                        {
-                            var resultado = new RetornoView<ViagemDespesa>() { data = despesa, sucesso = true };
-                                return CreatedAtRoute("GetDespesa", new { id = despesa.Id}, resultado);    
-                        }
-                        else 
-                        {
-                            var resultado = new RetornoView<ViagemDespesa>() { sucesso = false };
-                                return BadRequest(resultado);
-                        }
+                return BadRequest();
             }
 
-            [HttpPut("{id}")]
-            public ActionResult<RetornoView<ViagemDespesa>> Update(int id, [FromBody] ViagemDespesa despesa)
-            {
-                if (despesa == null) 
-                {
-                    return BadRequest();
-                }
+            var viagem = _context.Viagem.First(u => u.Id == despesa.ViagemId);
 
-                //Verifica se os dados passados correspondem com as regras de negócio
-                if ((despesa.Historico.Length < 5) || (despesa.Valor <= 0))
-                {
-                    return BadRequest();
-                }
+            if ((despesa.Historico.Length < 5) || (despesa.Valor <= 0) || (despesa.DataLancamento < viagem.DataSaida) || (despesa.DataLancamento < viagem.DataChegada)) 
+            {
+                return BadRequest();
+            }
+            _despesaRepository.Add(despesa);
+
+            if (despesa.Id > 0) 
+            {
+                var resultado = new RetornoView<ViagemDespesa>() { data = despesa, sucesso = true };
+                return CreatedAtRoute("GetDespesa", new { id = despesa.Id}, resultado);    
+            }
+            else 
+            {
+                var resultado = new RetornoView<ViagemDespesa>() { sucesso = false };
+                return BadRequest(resultado);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<RetornoView<ViagemDespesa>> Update(int id, [FromBody] ViagemDespesa despesa)
+        {
+            if (despesa == null) 
+            {
+                return BadRequest();
+            }
+
+            //Verifica se os dados passados correspondem com as regras de negócio
+            if ((despesa.Historico.Length < 5) || (despesa.Valor <= 0))
+            {
+                return BadRequest();
+            }
+            
+                var _despesa = _despesaRepository.Find(id);
                 
-                    var _despesa = _despesaRepository.Find(id);
-                    
-                        if(_despesa == null) 
-                        {
-                            return NotFound();
-                        }
-                            //despesa     = variável vinda do form
-                            //_despesa    = variável vinda do banco
-                            _despesaRepository.Update(despesa, _despesa);
-
-                                if (_despesaRepository.Find(id) == _despesa)
-                                {
-                                    var resultado = new RetornoView<ViagemDespesa>() { data = _despesa, sucesso = true };
-                                        return resultado;
-                                }
-                                else 
-                                {
-                                    var resultado = new RetornoView<ViagemDespesa>() { sucesso = false };
-                                        return BadRequest(resultado);
-                                } 
-            }
-
-            [HttpDelete("{id}")]
-            public ActionResult<RetornoView<ViagemDespesa>> Delete(int id) 
-            {
-                var despesa  = _despesaRepository.Find(id);
-
-                    if (despesa == null) 
+                    if(_despesa == null) 
                     {
                         return NotFound();
                     }
-                        _despesaRepository.Remove(id);
-                        
-                            if (_despesaRepository.Find(id) == null) 
+                        //despesa     = variável vinda do form
+                        //_despesa    = variável vinda do banco
+                        _despesaRepository.Update(despesa, _despesa);
+
+                            if (_despesaRepository.Find(id) == _despesa)
                             {
-                                var resultado = new RetornoView<ViagemDespesa>() { sucesso = true };
+                                var resultado = new RetornoView<ViagemDespesa>() { data = _despesa, sucesso = true };
                                     return resultado;
                             }
                             else 
                             {
                                 var resultado = new RetornoView<ViagemDespesa>() { sucesso = false };
-                                    return resultado;
-                            }
-            }
+                                    return BadRequest(resultado);
+                            } 
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<RetornoView<ViagemDespesa>> Delete(int id) 
+        {
+            var despesa  = _despesaRepository.Find(id);
+
+                if (despesa == null) 
+                {
+                    return NotFound();
+                }
+                    _despesaRepository.Remove(id);
+                    
+                        if (_despesaRepository.Find(id) == null) 
+                        {
+                            var resultado = new RetornoView<ViagemDespesa>() { sucesso = true };
+                                return resultado;
+                        }
+                        else 
+                        {
+                            var resultado = new RetornoView<ViagemDespesa>() { sucesso = false };
+                                return resultado;
+                        }
+        }
     }
 }
+*/

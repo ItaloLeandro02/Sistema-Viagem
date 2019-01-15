@@ -17,21 +17,19 @@ namespace api.Testes
         public Class1()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
-            optionsBuilder.UseSqlServer("Server=DESKTOP-UMB18DT; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
+            optionsBuilder.UseSqlServer("Server=ADSTDFDES08; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
             context = new DataDbContext(optionsBuilder.Options);
             var repository = new MotoristaRepository(context);
             controller = new MotoristaController(repository);
         }        
            
         [Fact]
-        public void nomeValido()
+        public void deveSalvar_nomeValido()
         {
             var motorista = new Motorista()
             {
-                Nome = "aaa"
+                Nome = "João"
             };
-
-            var Repository = new MotoristaRepository(context);
 
             controller.Create(motorista);
 
@@ -39,7 +37,7 @@ namespace api.Testes
         }
 
         [Fact]
-        public void nomeInvalido()
+        public void naoDeveSalvar_nome_menor_3_caracteres()
         {
             var motorista = new Motorista()
             {
@@ -48,7 +46,7 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.NotEqual(0, motorista.Id);
+            Assert.Equal(0, motorista.Id);
         }
     }
 }

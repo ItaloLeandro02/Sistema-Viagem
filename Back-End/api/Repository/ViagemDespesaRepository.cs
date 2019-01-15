@@ -1,4 +1,4 @@
-using System;
+/* using System;
 using System.Collections.Generic;
 using System.Linq;
 using api.Models;
@@ -15,11 +15,7 @@ namespace api.Repository
         }
         public void Add(ViagemDespesa despesa)
         {
-            var viagem = _context.Viagem.First(u => u.Id == despesa.ViagemId);
-            if ((despesa.Historico.Length < 5) || (despesa.Valor <= 0) || (despesa.DataLancamento < viagem.DataSaida) || (despesa.DataLancamento < viagem.DataChegada)) 
-            {
-                return;
-            }
+            
             var transaction = _context.Database.BeginTransaction();
                 try 
                 {
@@ -120,3 +116,4 @@ namespace api.Repository
         }
     }
 }
+*/

@@ -23,15 +23,6 @@
           "lib/netstandard1.5/Castle.Core.dll": {}
         }
       },
-      "DomainNotificationHelper/1.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/DomainNotificationHelper.dll": {}
-        },
-        "runtime": {
-          "lib/DomainNotificationHelper.dll": {}
-        }
-      },
       "FluentAssertions/4.19.2": {
         "type": "package",
         "dependencies": {
@@ -3555,9 +3546,6 @@
       "api/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
-        "dependencies": {
-          "DomainNotificationHelper": "1.0.1"
-        },
         "compile": {
           "bin/placeholder/api.dll": {}
         },
@@ -3591,18 +3579,6 @@
         "lib/netstandard1.5/Castle.Core.dll",
         "lib/netstandard1.5/Castle.Core.xml",
         "readme.txt"
-      ]
-    },
-    "DomainNotificationHelper/1.0.1": {
-      "sha512": "YVY6jCgCb7qyn+o5MmUf7n0UmA2ml2edqyZj04R6/xLMPq3nwpVQxUq7DtKvmVuimLI3pqd6Rjj4yWIaYMwVUA==",
-      "type": "package",
-      "path": "domainnotificationhelper/1.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "domainnotificationhelper.1.0.1.nupkg.sha512",
-        "domainnotificationhelper.nuspec",
-        "lib/DomainNotificationHelper.dll"
       ]
     },
     "FluentAssertions/4.19.2": {
@@ -4295,7 +4271,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
-      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "sha512": "2H5R37BVN9xU5j1eDGQ6SaDNM1wFajzrl0Z4GkoUDedrrmVM9/FFNIYarsdy+Gyks8sB6K9JUzzLBYOve+02uA==",
       "type": "package",
       "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "hasTools": true,
@@ -6448,12 +6424,11 @@
       ]
     },
     "System.ComponentModel.EventBasedAsync/4.0.11": {
-      "sha512": "EvcCeJf2fcsfOVr+3Vt+2xxi1TJIc8EVq/grEWroowjFsEJc7FUAsyQ95H+CvAElv3lv233SO+ZCo7/ciaQSqQ==",
+      "sha512": "Z7SO6vvQIR84daPE4uhaNdef9CjgjDMGYkas8epUhf0U3WGuaGgZ0Mm4QuNycMdbHUY8KEdZrtgxonkAiJaAlA==",
       "type": "package",
       "path": "system.componentmodel.eventbasedasync/4.0.11",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6970,12 +6945,11 @@
       ]
     },
     "System.Diagnostics.TextWriterTraceListener/4.0.0": {
-      "sha512": "oRsXCz76GDDMrwjMjH6keR9erFIofhGaIMc2d4NykI4rdBEuUP5ZswYA30LGPdyCK7DV4bMBEJL3nJFyAJoS/g==",
+      "sha512": "w36Dr8yKy8xP150qPANe7Td+/zOI3G62ImRcHDIEW+oUXUuTKZHd4DHmqRx5+x8RXd85v3tXd1uhNTfsr+yxjA==",
       "type": "package",
       "path": "system.diagnostics.textwritertracelistener/4.0.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7065,12 +7039,11 @@
       ]
     },
     "System.Diagnostics.TraceSource/4.3.0": {
-      "sha512": "BlWWL9q/HKM0KBzuOSOqchFga5MqnvkK5mb+IU7f4ecInSyghlswR3ib3nww1ruBmLrtdI5coCBB2H2AltTFyA==",
+      "sha512": "VnYp1NxGx8Ww731y2LJ1vpfb/DKVNKEZ8Jsh5SgQTZREL/YpWRArgh9pI8CDLmgHspZmLL697CaLvH85qQpRiw==",
       "type": "package",
       "path": "system.diagnostics.tracesource/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -10634,35 +10607,37 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\italo\\.nuget\\packages\\": {},
+    "C:\\Users\\Adsoft developer\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\italo\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\Testes\\Testes.csproj",
+      "projectUniqueName": "c:\\Users\\Adsoft developer\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\Testes\\Testes.csproj",
       "projectName": "Testes",
-      "projectPath": "c:\\Users\\italo\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\Testes\\Testes.csproj",
-      "packagesPath": "C:\\Users\\italo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\italo\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\Testes\\obj\\",
+      "projectPath": "c:\\Users\\Adsoft developer\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\Testes\\Testes.csproj",
+      "packagesPath": "C:\\Users\\Adsoft developer\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\Adsoft developer\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\Testes\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\italo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Adsoft developer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "c:\\Users\\italo\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\api\\api.csproj": {
-              "projectPath": "c:\\Users\\italo\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\api\\api.csproj"
+            "c:\\Users\\Adsoft developer\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\api\\api.csproj": {
+              "projectPath": "c:\\Users\\Adsoft developer\\Documents\\GitHub\\Sistema-Viagem\\Back-End\\api\\api.csproj"
             }
           }
         }
@@ -10742,17 +10717,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "O pacote 'DomainNotificationHelper 1.0.1' foi restaurado usando '.NETFramework,Version=v4.6.1' em vez da estrutura de destino do projeto '.NETCoreApp,Version=v2.2'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
-      "libraryId": "DomainNotificationHelper",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v2.2"
-      ]
-    }
-  ]
+  }
 }

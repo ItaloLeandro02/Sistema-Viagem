@@ -13,28 +13,22 @@ namespace api.Controllers
         {
             _cidadeRepository = cidadeRepository;
         }
-            [HttpGet]
-            public ActionResult<RetornoView<CidadeIbge>> GetAll()
-            {
-                return Ok (
-                    new {
-                        data = _cidadeRepository.GetAll()
-                    });
-            }
+        [HttpGet]
+        public ActionResult<RetornoView<CidadeIbge>> GetAll()
+        {
+            return Ok (new {data = _cidadeRepository.GetAll()});
+        }
 
-            [HttpGet("{id}", Name = "GetCidade")]
-            public ActionResult<RetornoView<CidadeIbge>> GetById(int id)
-            {
-                var cidade = _cidadeRepository.Find(id);
+        [HttpGet("{id}", Name = "GetCidade")]
+        public ActionResult<RetornoView<CidadeIbge>> GetById(int id)
+        {
+            var cidade = _cidadeRepository.Find(id);
 
-                    if (cidade == null)
-                    {
-                        return NotFound();
-                    }
-                        return Ok(
-                            new {
-                                data = cidade
-                        });
+            if (cidade == null)
+            {
+                return NotFound();
             }
+            return Ok(new {data = cidade});
+        }
     }
 }
