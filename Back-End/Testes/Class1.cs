@@ -1,44 +1,34 @@
 ﻿using System;
 using api.Models;
+using Testes;
 using api.Repository;
-using api.Controllers;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using Shouldly;
 using Xunit;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using System.Net.Http;
-using System.Net;
-using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace api.Testes
 {
-    public class Class1  
+    public class Class1
     {
-       private readonly HttpClient _client;
-       public Class1()
-       {
-           var server  = new TestServer(new WebHostBuilder()
-                .UseEnvironment("Development")
-                .UseStartup<Startup>());
-
-            _client = server.CreateClient();
-       }
-
-        [Theory]
-        [InlineData("GET")]
-        public ActionResult<RetornoView<Motorista>> MotoristaGetAllTest(string method)
+           
+        [Fact]
+        public void PassingTest()
         {
-            //Arrange
-            var request = new HttpRequestMessage(new HttpMethod(method), "/api");
+             var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
+            optionsBuilder.UseSqlServer("Server=ADSTDFDES08; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
 
-            //Act
-            var response = _client.SendAsync(request);
+            var context = new DataDbContext(optionsBuilder.Options);
+            
+            var motorista = new Motorista()
+            {
+                Nome = "aa"
+            };
 
-            //Assert
-            response.EnsureSuccessStatusCode();
+            var Repository = new MotoristaRepository(context);
+
+                Repository.Add(motorista);
         }
     }
 }

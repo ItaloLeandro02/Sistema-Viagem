@@ -15,38 +15,37 @@ namespace api.Repository
         }
         public void Add(Motorista motorista)
         {
+            //Verifica se o nome tem no mínimo 3 caracteres
+            if (motorista.Nome.Length < 3) 
+            {
+                return;
+            }
             var transaction = _context.Database.BeginTransaction();
-                try {
-
-                    //Verifica se o nome tem no mínimo 3 caracteres
-                    if (motorista.Nome.Length < 3) 
-                    {
-                        transaction.Rollback();
-                            return;
-                    }
-
+                try 
+                {
                     //Caso o apelido não seja informado receberá o primeiro nome
                     //Apenas um teste, procurar um forma melhor de realizar este procedimento
                     if (string.IsNullOrEmpty(motorista.Apelido)) 
                     {
                         string[] nome = motorista.Nome.Split(" ");
-                            for (int i = 0; i < nome.Length; i++)
-                            {
-                                motorista.Apelido = nome[0];    
-                            }
+                        for (int i = 0; i < nome.Length; i++)
+                        {
+                            motorista.Apelido = nome[0];    
+                        }
                     }
 
-                        motorista.Desativado = 0;
+                    motorista.Desativado = 0;
 
-                            _context.Motorista.Add(motorista);
-                                _context.SaveChanges();
-                                    transaction.Commit();
+                    _context.Motorista.Add(motorista);
+                    _context.SaveChanges();
+                    transaction.Commit();
                 }
-                catch (Exception e) {
+                catch (Exception e) 
+                {
                     Console.WriteLine("Erro");
-                         Console.WriteLine(e);
-                            transaction.Rollback();
-                                return;
+                    Console.WriteLine(e);
+                    transaction.Rollback();
+                    return;
                 }
         }
 
@@ -63,25 +62,27 @@ namespace api.Repository
         public void Remove(int id)
         {
             var transaction = _context.Database.BeginTransaction();
-                try {
+                try 
+                {
                     var motorista = _context.Motorista.First(u => u.Id == id);
-                        _context.Motorista.Remove(motorista);
-                            _context.SaveChanges();
-                                transaction.Commit();
+                    _context.Motorista.Remove(motorista);
+                    _context.SaveChanges();
+                    transaction.Commit();
                 }
-                catch (Exception e) {
+                catch (Exception e) 
+                {
                     Console.WriteLine("Erro");
-                        Console.WriteLine(e);
-                            transaction.Rollback();
-                                return;
+                    Console.WriteLine(e);
+                    transaction.Rollback();
+                    return;
                 }
         }
 
         public void Update(Motorista form, Motorista banco)
         {
             var transaction = _context.Database.BeginTransaction();
-                try {
-
+                try 
+                {
                     //Caso o apelido não seja informado receberá o primeiro nome
                     //Apenas um teste, procurar um forma melhor de realizar este procedimento
                     if (string.IsNullOrEmpty(form.Apelido)) 
@@ -93,19 +94,19 @@ namespace api.Repository
                             }
                     }
 
-                        banco.Nome       = form.Nome;
-                        banco.Apelido    = form.Apelido;
-                        banco.Desativado = form.Desativado;
+                    banco.Nome       = form.Nome;
+                    banco.Apelido    = form.Apelido;
+                    banco.Desativado = form.Desativado;
                         
-                            _context.Motorista.Update(banco);
-                                _context.SaveChanges();
-                                    transaction.Commit();
+                    _context.Motorista.Update(banco);
+                    _context.SaveChanges();
+                    transaction.Commit();
                 } 
                 catch (Exception e) {
                     Console.WriteLine("Erro");
-                        Console.WriteLine(e);
-                            transaction.Rollback();
-                                throw new System.Net.WebException (string.Format("Falha ao atualizar dados do motorista"));
+                    Console.WriteLine(e);
+                    transaction.Rollback();
+                    throw new System.Net.WebException (string.Format("Falha ao atualizar dados do motorista"));
                 }
         }
     }

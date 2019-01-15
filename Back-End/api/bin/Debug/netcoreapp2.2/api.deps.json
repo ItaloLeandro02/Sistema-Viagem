@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "b36818a78e1460eed609d6d51b385bb3652a4f45"
+    "signature": "27b0e975d87eee28e9680f94843b3cca1e3eacb7"
   },
   "compilationOptions": {
     "defines": [
@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.2": {
       "api/1.0.0": {
         "dependencies": {
+          "DomainNotificationHelper": "1.0.1",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0"
@@ -33,6 +34,17 @@
         },
         "compile": {
           "api.dll": {}
+        }
+      },
+      "DomainNotificationHelper/1.0.1": {
+        "runtime": {
+          "lib/DomainNotificationHelper.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/DomainNotificationHelper.dll": {}
         }
       },
       "Microsoft.NETCore.App/2.2.0": {
@@ -3226,6 +3238,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "DomainNotificationHelper/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YVY6jCgCb7qyn+o5MmUf7n0UmA2ml2edqyZj04R6/xLMPq3nwpVQxUq7DtKvmVuimLI3pqd6Rjj4yWIaYMwVUA==",
+      "path": "domainnotificationhelper/1.0.1",
+      "hashPath": "domainnotificationhelper.1.0.1.nupkg.sha512"
     },
     "Microsoft.NETCore.App/2.2.0": {
       "type": "package",

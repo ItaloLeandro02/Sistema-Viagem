@@ -7,7 +7,6 @@ namespace api.Models
     {
         public DataDbContext(DbContextOptions<DataDbContext> options) : base (options) 
         { }
-
         public DbSet<Motorista> Motorista { get; set; }
         public DbSet<Veiculo> Veiculo { get; set; }
         public DbSet<CidadeIbge> CidadeIbge { get; set; }

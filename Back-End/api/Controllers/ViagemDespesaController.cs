@@ -43,7 +43,7 @@ namespace api.Controllers
                 }
 
                 //Verifica se os dados passados correspondem com as regras de negócio
-                if ((despesa.Historico.Length < 5) || (despesa.Valor < 0))
+                if ((despesa.Historico.Length < 5) || (despesa.Valor <= 0))
                 {
                     return BadRequest();
                 }

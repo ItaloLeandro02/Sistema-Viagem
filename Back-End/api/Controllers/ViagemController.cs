@@ -100,18 +100,41 @@ namespace api.Controllers
                 {
                     return BadRequest();
                 }
-                    _viagemRepository.Add(viagem);
 
-                        if (viagem.Id > 0) 
+                if ((viagem.DataChegada < viagem.DataSaida) || (viagem.OrigemCidadeId == viagem.DestinoCidadeId) || (viagem.ToneladaPrecoUnitario <= 1) || (viagem.ToneladaCarga <= 1)) 
+                {
+                    return BadRequest();
+                }
+
+                //Por padrão será 0, caso tenha despesas vinculadas o valor será atualizado
+                viagem.ValorTotalDespesa = 0;
+
+                if (viagem.despesas != null) 
+                {
+                    foreach (var item in viagem.despesas)
+                    {
+                        //Valida as regras de negócio para despesas
+                        if ((item.Historico.Length < 5) || (item.Valor <= 0) || (item.DataLancamento < viagem.DataSaida) || (item.DataLancamento > viagem.DataChegada)) 
                         {
-                            var resultado = new RetornoView<Viagem>() { data = viagem, sucesso = true };
-                                return CreatedAtRoute("GetViagem", new { id = viagem.Id}, resultado);    
+                            return BadRequest();
                         }
-                        else 
-                        {
-                            var resultado = new RetornoView<Viagem>() { sucesso = false };
-                                return BadRequest(resultado);
-                        }
+
+                        viagem.ValorTotalDespesa += item.Valor;
+                    }
+                }
+                
+                _viagemRepository.Add(viagem);
+
+                if (viagem.Id > 0) 
+                {
+                    var resultado = new RetornoView<Viagem>() { data = viagem, sucesso = true };
+                    return CreatedAtRoute("GetViagem", new { id = viagem.Id}, resultado);    
+                }
+                else 
+                {
+                    var resultado = new RetornoView<Viagem>() { sucesso = false };
+                    return BadRequest(resultado);
+                }
             }
 
             [HttpPut("{id}")]
@@ -122,44 +145,44 @@ namespace api.Controllers
                     return BadRequest();
                 }
 
-                    //Verifica se os dados passados correspondem com as regras de negócio
-                    if ((viagem.DataChegada < viagem.DataSaida) || (viagem.OrigemCidadeId == viagem.DestinoCidadeId) || (viagem.ToneladaPrecoUnitario < 1) || (viagem.ToneladaCarga < 1)) 
-                    {
-                        return BadRequest();
-                    }
+                //Verifica se os dados passados correspondem com as regras de negócio
+                if ((viagem.DataChegada < viagem.DataSaida) || (viagem.OrigemCidadeId == viagem.DestinoCidadeId) || (viagem.ToneladaPrecoUnitario <= 1) || (viagem.ToneladaCarga <= 1)) 
+                {
+                    return BadRequest();
+                }
 
-                    if (viagem.despesas != null) 
+                if (viagem.despesas != null) 
+                {
+                    foreach (var item in viagem.despesas)
                     {
-                        foreach (var item in viagem.despesas)
+                        //Valida as regras de negócio para despesas
+                        if ((item.Historico.Length < 5) || (item.Valor <= 0) || (item.DataLancamento < viagem.DataSaida) || (item.DataLancamento > viagem.DataChegada)) 
                         {
-                            //Valida as regras de negócio para despesas
-                            if ((item.Historico.Length < 5) || (item.Valor < 0) || (item.DataLancamento < viagem.DataSaida) || (item.DataLancamento > viagem.DataChegada)) 
-                            {
-                                return BadRequest();
-                            }
+                            return BadRequest();
                         }
                     }
+                }
                 
-                        var _viagem = _viagemRepository.Find(id);
+                var _viagem = _viagemRepository.Find(id);
                         
-                            if(_viagem == null) 
-                            {
-                                return NotFound();
-                            }
-                                //viagem     = variável vinda do form
-                                //_viagem    = variável vinda do banco
-                                _viagemRepository.Update(viagem, _viagem);
+                if(_viagem == null) 
+                {
+                    return NotFound();
+                }
+                //viagem     = variável vinda do form
+                //_viagem    = variável vinda do banco
+                _viagemRepository.Update(viagem, _viagem);
 
-                                    if (_viagemRepository.Find(id) == _viagem)
-                                    {
-                                        var resultado = new RetornoView<Viagem>() { data = _viagem, sucesso = true };
-                                            return resultado;
-                                    }
-                                    else 
-                                    {
-                                        var resultado = new RetornoView<Viagem>() { sucesso = false };
-                                            return BadRequest(resultado);
-                                    } 
+                if (_viagemRepository.Find(id) == _viagem)
+                {
+                    var resultado = new RetornoView<Viagem>() { data = _viagem, sucesso = true };
+                    return resultado;
+                }
+                else 
+                {
+                    var resultado = new RetornoView<Viagem>() { sucesso = false };
+                    return BadRequest(resultado);
+                } 
             }
 
             [HttpDelete("{id}")]
