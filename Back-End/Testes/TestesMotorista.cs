@@ -18,11 +18,12 @@ namespace api.Testes
         public TestesMotorista()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
-            optionsBuilder.UseSqlServer("Server=DESKTOP-UMB18DT; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
+            optionsBuilder.UseSqlServer("Server=ADSTDFDES08; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
             context = new DataDbContext(optionsBuilder.Options);
             var repository = new MotoristaRepository(context);
             controller = new MotoristaController(repository);
-        }        
+        }    
+            
         [TestCategory("Regras de negócios Motorista")]
         [TestMethod]
         public void deveSalvar_nomeValido()

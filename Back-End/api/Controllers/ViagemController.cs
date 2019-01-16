@@ -4,6 +4,7 @@ using api.Models;
 using api.Views;
 using api.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace api.Controllers
 {
@@ -75,6 +76,11 @@ namespace api.Controllers
         [HttpPost]
         public ActionResult<RetornoView<Viagem>> Create([FromBody] Viagem viagem)
         {
+            if (viagem.DataSaida.Date == new DateTime(0001,1,1,0,0,0).Date) 
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada e/ou data de saída não podem ser nulas." };
+                return BadRequest(resultado);
+            }
 
             if (viagem.DataChegada < viagem.DataSaida) 
             {
@@ -154,6 +160,12 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public ActionResult<RetornoView<Viagem>> Update(int id, [FromBody] Viagem viagem)
         {
+
+            if ((viagem.DataChegada == new DateTime(0001,01,01)) || (viagem.DataSaida == new DateTime(0001,01,01))) 
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada e/ou data de saída não podem ser nulas." };
+                return BadRequest(resultado);
+            }
             
             if (viagem.DataChegada < viagem.DataSaida) 
             {

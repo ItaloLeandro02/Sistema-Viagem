@@ -18,7 +18,7 @@ namespace api.Testes
         public TestesVeiculo()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
-            optionsBuilder.UseSqlServer("Server=DESKTOP-UMB18DT; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
+            optionsBuilder.UseSqlServer("Server=ADSTDFDES08; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
             context = new DataDbContext(optionsBuilder.Options);
             var repository = new VeiculoRepository(context);
             controller = new VeiculoController(repository);
