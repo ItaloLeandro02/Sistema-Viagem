@@ -18,9 +18,6 @@ c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcore
 c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.AssemblyInfo.cs
 c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.dll
 c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcoreapp2.2\Testes.pdb
-c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
-c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
-c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
 c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.deps.json
 c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.runtimeconfig.json
 c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Testes.runtimeconfig.dev.json
@@ -32,3 +29,6 @@ c:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\obj\Debug\netcore
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll

@@ -18,12 +18,12 @@ namespace api.Testes
         public TestesMotorista()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
-            optionsBuilder.UseSqlServer("Server=ADSTDFDES08; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-UMB18DT; Database= Sistema-Viagem; User Id=sa; Password=IL0604#@;");
             context = new DataDbContext(optionsBuilder.Options);
             var repository = new MotoristaRepository(context);
             controller = new MotoristaController(repository);
         }        
-           
+        [TestCategory("Regras de negócios Motorista")]
         [TestMethod]
         public void deveSalvar_nomeValido()
         {
@@ -71,7 +71,7 @@ namespace api.Testes
 
             Assert.AreEqual(0, motorista.Id);
         }
-        [TestCategory("Bugs"), TestMethod]
+        [TestMethod]
         public void deveSalvar_campos_obrigatorios()
         {
             var motorista = new Motorista()
@@ -84,6 +84,42 @@ namespace api.Testes
             controller.Create(motorista);
 
             Assert.AreNotEqual(0, motorista.Id);
+        }
+
+        [TestMethod]
+        public void naoDeveAtualizar_nome_menor_3_caracteres()
+        {
+            var motorista = new Motorista()
+            {
+                Nome = "Motorista",
+            };
+
+            var motorista1 = new Motorista()
+            {
+                Nome = "Mo",
+            };
+
+            controller.Create(motorista);
+            controller.Update(motorista.Id, motorista1);
+
+            Assert.AreNotEqual(motorista.Nome, motorista1.Nome);
+        }
+        [TestMethod]
+        public void deveAtualiazar_nome()
+        {
+            var motorista = new Motorista()
+            {
+                Nome = "Teste Unitário"
+            };
+
+            var motorista1 = new Motorista()
+            {
+                Nome = "João Da Silva"
+            };
+
+            controller.Create(motorista);
+            controller.Update(motorista.Id, motorista1);
+            Assert.AreEqual(motorista.Nome, motorista1.Nome);
         }
     }
 }

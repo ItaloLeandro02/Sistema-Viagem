@@ -46,6 +46,7 @@ namespace api.Controllers
                 var resultado = new RetornoView<Motorista>() { sucesso = false, erro = " O nome do motorista deve conter no mínimo 3 caracteres." };
                 return BadRequest(resultado);
             }
+            
             _motoristaRepository.Add(motorista);
 
             if (motorista.Id > 0) 
@@ -77,7 +78,7 @@ namespace api.Controllers
             {
                 return NotFound();
             }
-
+ 
             if (string.IsNullOrEmpty(motorista.Apelido)) 
             {
                 string[] nome = motorista.Nome.Split(" ");
@@ -86,6 +87,7 @@ namespace api.Controllers
                     motorista.Apelido = nome[0];    
                 }
             }
+            
             //motorista     = variável vinda do form
             //_motorista    = variável vinda do banco
             _motoristaRepository.Update(motorista, _motorista);
