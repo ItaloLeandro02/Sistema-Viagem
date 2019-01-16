@@ -30,9 +30,9 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                VeiculoId                   = 1015,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
                 ToneladaPrecoUnitario       = 200,
@@ -41,7 +41,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -49,9 +49,9 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
+                MotoristaId                 = 1153,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
                 ToneladaPrecoUnitario       = 200,
@@ -60,7 +60,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -68,8 +68,8 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
@@ -79,7 +79,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -87,8 +87,8 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
@@ -98,7 +98,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -106,10 +106,10 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 DestinoCidadeId             = 1500,
                 ToneladaPrecoUnitario       = 200,
                 ToneladaCarga               = 150,
@@ -117,7 +117,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -125,10 +125,10 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 ToneladaPrecoUnitario       = 200,
                 ToneladaCarga               = 150,
@@ -136,7 +136,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+           Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -144,10 +144,10 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
                 ToneladaCarga               = 150,
@@ -155,7 +155,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -163,10 +163,10 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
                 ToneladaPrecoUnitario       = 200,
@@ -174,7 +174,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -182,10 +182,10 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
                 ToneladaPrecoUnitario       = 200,
@@ -204,7 +204,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -212,10 +212,10 @@ namespace Testes
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
-                DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
                 DestinoCidadeId             = 1500,
                 ToneladaPrecoUnitario       = 200,
@@ -234,16 +234,16 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
-        public void naoDeveSalvar_despesa_dataLancamento_igual_dataChegada()
+        public void naoDeveSalvar_despesa_dataLancamento_diferente_dataChegada()
         {
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 1),
                 DataSaida                   = new DateTime(2019,1,2), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
@@ -264,7 +264,7 @@ namespace Testes
 
             controller.Create(viagem);
 
-            Assert.AreEqual(0, viagem.Id);
+            Assert.IsFalse(viagem.Id > 0);
         }
 
         [TestMethod]
@@ -273,15 +273,15 @@ namespace Testes
 
             var despesa = new ViagemDespesa()
             {
-                DataLancamento  =  new DateTime(2019, 1, 1),
+                DataLancamento  =  new DateTime(2019, 1, 2),
                 Historico       = "Lazer",
                 Valor           = 150
             };
 
             var viagem = new Viagem()
             {   
-                MotoristaId                 = 1033,
-                VeiculoId                   = 1015,
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
                 DataChegada                 = new DateTime(2019, 1, 2),
                 DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
                 OrigemCidadeId              = 263,
@@ -295,7 +295,83 @@ namespace Testes
           
             controller.Create(viagem);
 
-            Assert.AreNotEqual(0, viagem.Id);
+            Assert.IsTrue(viagem.Id > 0);
+        }
+
+        [TestMethod]
+        public void deveSalvar_verificar_preco_bruto()
+        {
+
+            var despesa = new ViagemDespesa()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 2),
+                Historico       = "Lazer",
+                Valor           = 150
+            };
+
+            var viagem = new Viagem()
+            {   
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
+                DataChegada                 = new DateTime(2019, 1, 2),
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
+                OrigemCidadeId              = 263,
+                DestinoCidadeId             = 1500,
+                ToneladaPrecoUnitario       = 200,
+                ToneladaCarga               = 150,
+                despesas                    = new List<ViagemDespesa>()
+            };
+
+            viagem.despesas.Add(despesa);
+          
+            controller.Create(viagem);
+
+            Assert.IsTrue(viagem.ValorTotalBruto == (viagem.ToneladaPrecoUnitario * viagem.ToneladaCarga));
+        }
+
+        [TestMethod]
+        public void deveSalvar_verificar_preco_liquido()
+        {
+
+            var lazer = new ViagemDespesa()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 2),
+                Historico       = "Lazer",
+                Valor           = 150
+            };
+
+            var combustivel = new ViagemDespesa()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 2),
+                Historico       = "Combustível",
+                Valor           = 400
+            };
+
+            var viagem = new Viagem()
+            {   
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
+                DataChegada                 = new DateTime(2019, 1, 2),
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
+                OrigemCidadeId              = 263,
+                DestinoCidadeId             = 1500,
+                ToneladaPrecoUnitario       = 200,
+                ToneladaCarga               = 150,
+                despesas                    = new List<ViagemDespesa>()
+            };
+
+            double despesas = 0;
+            foreach (var item in viagem.despesas)
+            {
+                despesas += item.Valor;
+            }
+
+            viagem.despesas.Add(lazer);
+            viagem.despesas.Add(combustivel);
+          
+            controller.Create(viagem);
+
+            Assert.IsTrue(viagem.ValorTotalLiquido == (viagem.ValorTotalBruto - despesas));
         }
     }
 }

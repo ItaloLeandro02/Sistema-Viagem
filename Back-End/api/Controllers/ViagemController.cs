@@ -94,6 +94,23 @@ namespace api.Controllers
                 return BadRequest(resultado);
             }
 
+            if (!(viagem.OrigemCidadeId > 0) || !(viagem.DestinoCidadeId > 0))
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A cidade de origem e/ou cidade de destino não podem ser nulas." };
+                return BadRequest(resultado);
+            }
+
+            if (!(viagem.MotoristaId > 0))
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o motorista." };
+                return BadRequest(resultado);
+            }
+
+            if (!(viagem.VeiculoId > 0))
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o veiculo." };
+                return BadRequest(resultado);
+            }
 
             if (viagem.ToneladaPrecoUnitario <= 1)
             {
@@ -161,12 +178,12 @@ namespace api.Controllers
         public ActionResult<RetornoView<Viagem>> Update(int id, [FromBody] Viagem viagem)
         {
 
-            if ((viagem.DataChegada == new DateTime(0001,01,01)) || (viagem.DataSaida == new DateTime(0001,01,01))) 
+            if (viagem.DataSaida.Date == new DateTime(0001,1,1,0,0,0).Date) 
             {
                 var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada e/ou data de saída não podem ser nulas." };
                 return BadRequest(resultado);
             }
-            
+
             if (viagem.DataChegada < viagem.DataSaida) 
             {
                 var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada não pode ser menor que a data de saída." };
@@ -179,6 +196,23 @@ namespace api.Controllers
                 return BadRequest(resultado);
             }
 
+            if (!(viagem.OrigemCidadeId > 0) || !(viagem.DestinoCidadeId > 0))
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A cidade de origem e/ou cidade de destino não podem ser nulas." };
+                return BadRequest(resultado);
+            }
+
+            if (!(viagem.MotoristaId > 0))
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o motorista." };
+                return BadRequest(resultado);
+            }
+
+            if (!(viagem.VeiculoId > 0))
+            {
+                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o veiculo." };
+                return BadRequest(resultado);
+            }
 
             if (viagem.ToneladaPrecoUnitario <= 1)
             {

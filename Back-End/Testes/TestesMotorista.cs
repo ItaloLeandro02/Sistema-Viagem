@@ -35,7 +35,7 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.AreNotEqual(0, motorista.Id);
+            Assert.IsTrue(motorista.Id > 0);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.AreEqual(0, motorista.Id);
+            Assert.IsFalse(motorista.Id > 0);
         }
         [TestMethod]
         public void naoDeveSalvar_objeto_null()
@@ -57,7 +57,7 @@ namespace api.Testes
         
             controller.Create(motorista);
 
-            Assert.AreEqual(0, motorista.Id);
+            Assert.IsFalse(motorista.Id > 0);
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.AreEqual(0, motorista.Id);
+            Assert.IsFalse(motorista.Id > 0);
         }
         [TestMethod]
         public void deveSalvar_campos_obrigatorios()
@@ -84,7 +84,7 @@ namespace api.Testes
 
             controller.Create(motorista);
 
-            Assert.AreNotEqual(0, motorista.Id);
+            Assert.IsTrue(motorista.Id > 0);
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@ namespace api.Testes
             controller.Create(motorista);
             controller.Update(motorista.Id, motorista1);
 
-            Assert.AreNotEqual(motorista.Nome, motorista1.Nome);
+            Assert.IsFalse(motorista.Nome == motorista1.Nome);
         }
         [TestMethod]
         public void deveAtualiazar_nome()
@@ -120,7 +120,8 @@ namespace api.Testes
 
             controller.Create(motorista);
             controller.Update(motorista.Id, motorista1);
-            Assert.AreEqual(motorista.Nome, motorista1.Nome);
+
+            Assert.IsTrue(motorista.Nome == motorista1.Nome);
         }
     }
 }

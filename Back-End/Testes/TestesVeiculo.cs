@@ -32,7 +32,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
         [TestMethod]
         public void naoDeveSalvar_campos_obrigatorios_falta_modelo()
@@ -61,7 +61,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
         [TestMethod]
         public void naoDeveSalvar_campos_obrigatorios_falta_AnoFabricacao()
@@ -75,7 +75,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
         [TestMethod]
         public void naoDeveSalvar_campos_obrigatorios_falta_AnoModelo()
@@ -89,7 +89,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
 
         [TestMethod]
@@ -121,7 +121,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreEqual(0, veiculo.Id);
+            Assert.IsFalse(veiculo.Id > 0);
         }
 
         [TestMethod]
@@ -153,7 +153,7 @@ namespace api.Testes
 
             controller.Create(veiculo);
 
-            Assert.AreNotEqual(0, veiculo.Id);
+            Assert.IsTrue(veiculo.Id > 0);
         }
 
         [TestMethod]
@@ -178,7 +178,7 @@ namespace api.Testes
             controller.Create(veiculo);
             controller.Update(veiculo.Id, veiculo1);
 
-            Assert.AreNotEqual(veiculo1.AnoModelo, veiculo.AnoModelo);
+            Assert.IsFalse(veiculo1.AnoModelo == veiculo.AnoModelo);
         }
 
         [TestMethod]
@@ -203,7 +203,7 @@ namespace api.Testes
             controller.Create(veiculo);
             controller.Update(veiculo.Id, veiculo1);
 
-            Assert.AreEqual(veiculo1.AnoFabricacao, veiculo.AnoFabricacao);
+            Assert.IsTrue(veiculo1.AnoFabricacao == veiculo.AnoFabricacao);
         }
 
         [TestMethod]
@@ -228,7 +228,7 @@ namespace api.Testes
             controller.Create(veiculo);
             controller.Update(veiculo.Id, veiculo1);
 
-            Assert.AreNotEqual(veiculo1.AnoModelo, veiculo.AnoModelo);
+            Assert.IsFalse(veiculo1.AnoModelo == veiculo.AnoModelo);
         }
 
         [TestMethod]
@@ -253,7 +253,7 @@ namespace api.Testes
             controller.Create(veiculo);
             controller.Update(veiculo.Id, veiculo1);
 
-            Assert.AreEqual(veiculo1.AnoFabricacao, veiculo.AnoFabricacao);
+            Assert.IsTrue(veiculo1.AnoFabricacao == veiculo.AnoFabricacao);
         }
 
         [TestMethod]
@@ -278,7 +278,7 @@ namespace api.Testes
             controller.Create(veiculo);
             controller.Update(veiculo.Id, veiculo1);
 
-            Assert.AreNotEqual(veiculo1.AnoModelo, veiculo.AnoModelo);
+            Assert.IsFalse(veiculo1.AnoModelo == veiculo.AnoModelo);
         }
 
         [TestMethod]
@@ -303,7 +303,7 @@ namespace api.Testes
             controller.Create(veiculo);
             controller.Update(veiculo.Id, veiculo1);
 
-            Assert.AreEqual(veiculo1.AnoFabricacao, veiculo.AnoFabricacao);
+           Assert.IsTrue(veiculo1.AnoFabricacao == veiculo.AnoFabricacao);
         }
     }
 }
