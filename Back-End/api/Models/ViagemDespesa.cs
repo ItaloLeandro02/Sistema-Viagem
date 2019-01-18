@@ -16,5 +16,6 @@ namespace api.Models
         public DateTimeOffset DataLancamento { get; set; }
         public string Historico { get; set; }
         public double Valor { get; set; }
+        public int Tipo { get; set; }
     }
 }

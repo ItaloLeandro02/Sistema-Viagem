@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using api.Views;
+using System.Collections.Generic;
 
 namespace api.Models
 {
@@ -16,5 +17,17 @@ namespace api.Models
         public DbSet<DashboardComissao> Comissao { get; set; }
         public DbSet<DashboardFaturamentoUf> FaturamentoUf { get; set; }
         public DbSet<DashboardMapaBrasil> MapaBrasil { get; set; }
+
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Viagem>()
+                .HasOne<List<ViagemDespesa>>(a => a.despesas)
+                .WithMany(Viage);
+
+                modelBuilder.Entity<Viagem>()
+                .HasOne<List<ViagemDespesa>>(a => a.combustivel)
+                .WithMany();
+
+        }
     }
 }

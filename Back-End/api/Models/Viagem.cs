@@ -17,7 +17,6 @@ namespace api.Models
         [ForeignKey("motorista")]
         public int MotoristaId { get; set; }
         public virtual Motorista motorista { get; set; }
-
         public DateTimeOffset DataSaida { get; set; }
         public DateTimeOffset DataChegada { get; set; }
 
@@ -36,5 +35,8 @@ namespace api.Models
         public double ValorTotalBruto { get; set; }
         public double ValorTotalDespesa { get; set; }
         public double ValorTotalLiquido { get; set; }
+        public virtual List<ViagemDespesa> combustivel { get; set; }
+        public decimal Valor_Total_Combustivel { get; set; }
+        public decimal Valor_Imposto { get; set; }
     }
 }
