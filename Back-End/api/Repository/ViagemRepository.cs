@@ -85,16 +85,25 @@ namespace api.Repository
             .AsEnumerable();
         }
 
+        public IEnumerable<DashboarFaturamentoDespesasCombustivel> DashboardFaturamentoDespesasCombustivel(string dataInicial, string dataFinal)
+        {
+            return _context.FaturamentoDespesasCombustivel
+            .FromSql("SELECT ROW_NUMBER() OVER(ORDER BY vi.dataChegada ASC) Id, SUM(vi.valorTotalBruto) Bruto, SUM(vi.valorTotalDespesa) Despesas, SUM(vi.valor_total_combustivel) Combustivel, (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes" +
+            " FROM viagem vi WHERE vi.dataChegada BETWEEN '" + dataInicial + "' AND '" + dataFinal + "' GROUP BY vi.dataChegada")
+            .DefaultIfEmpty()
+            .AsEnumerable();
+        }
+
         public Viagem Find(int id)
         {
             //Preciso trabalhar aqui para não retornar dados sensíveis
             return _context.Viagem
-             .Include(v => v.veiculo)
-             .Include(m => m.motorista)
-             .Include(o => o.cidadeOrigem)
-             .Include(d => d.cidadeDestino)
-             //.Include(e => e.despesas)
-             //.Include(f => f.combustivel)
+            .Include(v => v.veiculo)
+            .Include(m => m.motorista)
+            .Include(o => o.cidadeOrigem)
+            .Include(d => d.cidadeDestino)
+            .Include(e => e.despesas)
+            .Include(f => f.combustivel)
             .FirstOrDefault(u => u.Id == id);
         }
 
@@ -102,13 +111,12 @@ namespace api.Repository
         {
             //Preciso trabalhar aqui para não retornar dados sensíveis
             return _context.Viagem
-            /* 
             .Include(v => v.veiculo)
             .Include(m => m.motorista)
             .Include(o => o.cidadeOrigem)
             .Include(d => d.cidadeDestino)
             .Include(e => e.despesas)
-            */
+            .Include(e => e.combustivel)
             .ToList();
         }
 
@@ -122,12 +130,7 @@ namespace api.Repository
                     .Where(v => v.Id == id)
                     .First();
 
-                    var despesa = _context.ViagemDespesa
-                    .Where(d => d.ViagemId == viagem.Id)
-                    .First();
-
                     _context.Viagem.Remove(viagem);
-                    _context.ViagemDespesa.Remove(despesa);
                     _context.SaveChanges();
                     transaction.Commit();
                 }

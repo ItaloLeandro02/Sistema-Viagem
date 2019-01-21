@@ -56,7 +56,7 @@ function faturamentoUfController(faturamentoUfService) {
                 text: 'Area chart with negative values'
             },
             xAxis: {
-                categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio']
+                categories: meses
             },
             credits: {
                 enabled: false

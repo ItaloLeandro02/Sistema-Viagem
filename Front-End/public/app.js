@@ -12,7 +12,8 @@ var materialApp = angular
     'app.mapa-brasil',
     'app.motorista',
     'app.veiculo',
-    'app.viagem'
+    'app.viagem',
+    'app.faturamentoArea'
     
 
 ]).config(function($mdThemingProvider) {

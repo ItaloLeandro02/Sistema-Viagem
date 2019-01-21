@@ -17,21 +17,7 @@ namespace api.Models
         public DbSet<DashboardComissao> Comissao { get; set; }
         public DbSet<DashboardFaturamentoUf> FaturamentoUf { get; set; }
         public DbSet<DashboardMapaBrasil> MapaBrasil { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Viagem>()
-                .HasMany(p => p.combustivel)
-                .WithOne()
-                .HasForeignKey(p => p.viagem);
-
-             modelBuilder.Entity<Viagem>()
-                .HasMany(p => p.despesas)
-                .WithOne();
-                //.HasForeignKey(p => p.Id);    
-
-                modelBuilder.Ignore<ViagemDespesa>();
-
-        }
+        public DbSet<DashboarFaturamentoDespesasCombustivel> FaturamentoDespesasCombustivel { get; set; }
+        
     }
 }

@@ -13,6 +13,7 @@ namespace api.Repository
         IEnumerable<DashboardComissao> DashboardComissao();
         IEnumerable<DashboardFaturamentoUf> DashboardFaturamentoUf(string dataInicial, string dataFinal);
         IEnumerable<DashboardMapaBrasil> DashboardMapaBrasil();
+        IEnumerable<DashboarFaturamentoDespesasCombustivel> DashboardFaturamentoDespesasCombustivel(string dataInicial, string dataFinal);
         Viagem Find(int id);
         void Remove(int id);
         void Update(Viagem form, Viagem banco);

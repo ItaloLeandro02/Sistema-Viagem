@@ -73,6 +73,16 @@ namespace api.Controllers
             return Ok (new {data = _viagemRepository.DashboardMapaBrasil()});
         }
 
+        [HttpGet("bruto-despesas-combustivel")]
+        public ActionResult<RetornoView<DashboarFaturamentoDespesasCombustivel>> DashboardFaturamentoDespesasCombustivel()
+        {
+            string dataInicial  = HttpContext.Request.Query["dataInicial"];
+            string dataFinal    = HttpContext.Request.Query["dataFinal"];
+
+            return Ok (new {data = _viagemRepository.DashboardFaturamentoDespesasCombustivel(dataInicial, dataFinal)});
+        }
+
+
         [HttpPost]
         public ActionResult<RetornoView<Viagem>> Create([FromBody] Viagem viagem)
         {
@@ -131,6 +141,7 @@ namespace api.Controllers
             {
                 foreach (var item in viagem.despesas)
                 {
+                    item.Tipo = 1;
                     //Valida as regras de negócio para despesas
                     if (item.Historico.Length < 5) 
                     {
@@ -159,6 +170,42 @@ namespace api.Controllers
                     viagem.ValorTotalDespesa += item.Valor;
                 }
             }
+
+            if (viagem.combustivel != null) 
+            {
+                foreach (var item in viagem.combustivel)
+                {
+                    item.Tipo = 2;
+                    //Valida as regras de negócio para despesas
+                    if (item.Historico.Length < 5) 
+                    {
+                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O histórico deve conter no mínimo 5 caracteres." };
+                        return BadRequest(resultado);
+                    }
+
+                    if (item.DataLancamento > viagem.DataChegada)
+                    {
+                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser maior do que a data de chegada." };
+                        return BadRequest(resultado);
+                    }
+
+                    if (item.DataLancamento < viagem.DataSaida)
+                    {
+                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser menor do que a data de chegada." };
+                        return BadRequest(resultado);
+                    }
+
+                    if (item.Valor <= 0)
+                    {
+                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O valor da despesa deve ser maior do que 0." };
+                        return BadRequest(resultado);
+                    }
+
+                    viagem.Valor_Total_Combustivel += item.Valor;
+                }
+            }
+
+            viagem.Valor_Imposto = ((viagem.ValorTotalBruto * 18) / 100);
             
             _viagemRepository.Add(viagem);
 

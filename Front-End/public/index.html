@@ -60,6 +60,11 @@
             <span>Dashboard Mapa Do Brasil</span>
         </md-list-item>
         <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="app.toggleLeft()" href="/faturamento-despesas-combustivel">
+            <span>Faturamento, Despesas, Combustível</span>
+        </md-list-item>
+        <md-divider></md-divider>
     
         <md-list-item layout="row" ng-click="app.toggleLeft()" href="/list">
             <span>Condôminos</span>
@@ -148,6 +153,9 @@
 
 <script src="modules/graficos/controllers/mapa-brasil.controller.js"></script>
 <script src="modules/graficos/services/mapa-brasil.service.js"></script>
+
+<script src="modules/graficos/controllers/faturamentoArea.controller.js"></script>
+<script src="modules/graficos/services/faturamentoArea.service.js"></script>
 
 <script src="modules/motorista/controllers/motorista.controller.js"></script>
 <script src="modules/motorista/services/motorista.service.js"></script>

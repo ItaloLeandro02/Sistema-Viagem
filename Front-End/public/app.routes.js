@@ -75,6 +75,15 @@ router.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             params: {
                 title: "Nova Viagem"
             }
+        })
+        .state('faturamento-despesas-combustivel', {
+            url: '/faturamento-despesas-combustivel',
+            templateUrl: '/modules/graficos/views/faturamentoArea.html',
+            controller: 'FaturamentoAreaController',
+            controllerAs: 'vm',
+            params: {
+                title: "Controle Financeiro"
+            }
         });
 
 

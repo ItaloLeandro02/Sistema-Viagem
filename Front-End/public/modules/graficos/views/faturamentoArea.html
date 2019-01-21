@@ -1,0 +1,13 @@
+<div layout="row" layout-align="center center">
+    <md-input-container>
+        <md-datepicker ng-model="dataInicial" aria-label="lkhkl"></md-datepicker>
+    </md-input-container>
+    <md-input-container>
+        <md-datepicker ng-model="dataFinal" aria-label="lkhkl"></md-datepicker>
+    </md-input-container>
+    
+    <md-button class="md-primary" ng-click="vm.filtarPeriodo(dataInicial,dataFinal)">Filtrar</md-button>
+    <md-button class="md-primary" ng-click="vm.chartFaturamento()">Limpar</md-button>
+    
+</div>
+<div id="faturamentoDespesasCombustivel"></div>

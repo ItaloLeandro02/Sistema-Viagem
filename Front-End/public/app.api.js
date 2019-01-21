@@ -64,6 +64,11 @@
         }
       })
 
+      api.faturamentoArea   = $resource(api.baseUrl + 'viagem/bruto-despesas-combustivel', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
 
       return api;
     }
