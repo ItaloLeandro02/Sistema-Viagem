@@ -27,7 +27,7 @@ namespace api.Models
         [ForeignKey("cidadeDestino")]
         public int DestinoCidadeId { get; set; }
         public virtual CidadeIbge cidadeDestino { get; set; }
-
+        //[ForeignKey("despesas")]
         public virtual List<ViagemDespesa> despesas { get; set; }
         
         public double ToneladaPrecoUnitario { get; set; }
@@ -35,8 +35,9 @@ namespace api.Models
         public double ValorTotalBruto { get; set; }
         public double ValorTotalDespesa { get; set; }
         public double ValorTotalLiquido { get; set; }
+        //[ForeignKey("combustivel")]
         public virtual List<ViagemDespesa> combustivel { get; set; }
-        public decimal Valor_Total_Combustivel { get; set; }
-        public decimal Valor_Imposto { get; set; }
+        public double Valor_Total_Combustivel { get; set; }
+        public double Valor_Imposto { get; set; }
     }
 }

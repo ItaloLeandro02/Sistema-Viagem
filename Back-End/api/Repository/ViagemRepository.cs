@@ -89,11 +89,12 @@ namespace api.Repository
         {
             //Preciso trabalhar aqui para não retornar dados sensíveis
             return _context.Viagem
-            .Include(v => v.veiculo)
-            .Include(m => m.motorista)
-            .Include(o => o.cidadeOrigem)
-            .Include(d => d.cidadeDestino)
-            .Include(e => e.despesas)
+             .Include(v => v.veiculo)
+             .Include(m => m.motorista)
+             .Include(o => o.cidadeOrigem)
+             .Include(d => d.cidadeDestino)
+             //.Include(e => e.despesas)
+             //.Include(f => f.combustivel)
             .FirstOrDefault(u => u.Id == id);
         }
 
@@ -101,11 +102,13 @@ namespace api.Repository
         {
             //Preciso trabalhar aqui para não retornar dados sensíveis
             return _context.Viagem
+            /* 
             .Include(v => v.veiculo)
             .Include(m => m.motorista)
             .Include(o => o.cidadeOrigem)
             .Include(d => d.cidadeDestino)
             .Include(e => e.despesas)
+            */
             .ToList();
         }
 

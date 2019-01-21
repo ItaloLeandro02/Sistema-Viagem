@@ -18,15 +18,19 @@ namespace api.Models
         public DbSet<DashboardFaturamentoUf> FaturamentoUf { get; set; }
         public DbSet<DashboardMapaBrasil> MapaBrasil { get; set; }
 
-       protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Viagem>()
-                .HasOne<List<ViagemDespesa>>(a => a.despesas)
-                .WithMany(Viage);
+                .HasMany(p => p.combustivel)
+                .WithOne()
+                .HasForeignKey(p => p.viagem);
 
-                modelBuilder.Entity<Viagem>()
-                .HasOne<List<ViagemDespesa>>(a => a.combustivel)
-                .WithMany();
+             modelBuilder.Entity<Viagem>()
+                .HasMany(p => p.despesas)
+                .WithOne();
+                //.HasForeignKey(p => p.Id);    
+
+                modelBuilder.Ignore<ViagemDespesa>();
 
         }
     }

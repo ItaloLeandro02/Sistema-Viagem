@@ -11,7 +11,8 @@ namespace api.Models
         
         [ForeignKey("viagem")]
         public int ViagemId { get; set; }
-        //public virtual Viagem viagem { get; set; }
+         [NotMapped]
+        public virtual Viagem viagem { get; set; }
 
         public DateTimeOffset DataLancamento { get; set; }
         public string Historico { get; set; }
