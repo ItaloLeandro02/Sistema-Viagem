@@ -365,7 +365,7 @@ namespace api.Controllers
             else 
             {
                 var resultado = new RetornoView<Viagem>() { sucesso = false };
-                return resultado;
+                return BadRequest(resultado);
             }
         }
     }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Validation;
 
 namespace api.Models
 {
@@ -11,5 +12,11 @@ namespace api.Models
         public int AnoFabricacao { get; set; }
         public int AnoModelo { get; set; }
         public byte Desativado { get; set; }
+
+        public void validacoes()
+        {
+            AssertionConcern.AssertArgumentNotNull(this.AnoFabricacao, "Ano de fabricação não pode ser nulo");
+            AssertionConcern.AssertArgumentNotNull(this.Fabricante, "Nome deve conter no mínimo 3 caracteres");
+        }
     }
 }

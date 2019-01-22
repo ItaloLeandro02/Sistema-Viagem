@@ -5,8 +5,6 @@ namespace Validation
 {
     public class AssertionConcern
     {
-        public class AssertionConcern
-    {
         public static void AssertArgumentEquals(object object1, object object2, string message)
         {
             if (!object1.Equals(object2))
@@ -212,6 +210,5 @@ namespace Validation
         {
             AssertionConcern.AssertStateTrue(boolValue, message);
         }
-    }
     }
 }

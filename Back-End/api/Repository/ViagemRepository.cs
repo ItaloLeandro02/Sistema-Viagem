@@ -126,11 +126,8 @@ namespace api.Repository
             {
                 try {
 
-                    var viagem = _context.Viagem
-                    .Where(v => v.Id == id)
-                    .First();
+                    _context.Database.ExecuteSqlCommand("DELETE FROM viagem WHERE id = " + id);
 
-                    _context.Viagem.Remove(viagem);
                     _context.SaveChanges();
                     transaction.Commit();
                 }

@@ -1,7 +1,11 @@
 using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using api.Models;
 using api.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Formatting;
 
 namespace api.Controllers
 {
@@ -33,75 +37,42 @@ namespace api.Controllers
         }
 
         [HttpPost]
+        [Route("")]
         public ActionResult<RetornoView<Motorista>> Create([FromBody] Motorista motorista)
         {
-            if (String.IsNullOrEmpty(motorista.Nome))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Nome não pode ser nulo." };
-                return BadRequest(resultado);
-            }
-
-            if (motorista.Nome.Length < 3) 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = " O nome do motorista deve conter no mínimo 3 caracteres." };
-                return BadRequest(resultado);
-            }
-            
-            _motoristaRepository.Add(motorista);
-
-            if (motorista.Id > 0) 
-            {
-                var resultado = new RetornoView<Motorista>() { data = motorista, sucesso = true };
-                return CreatedAtRoute("GetMotorista", new { id = motorista.Id}, resultado);    
-            }
-            else 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false };
-                return BadRequest(resultado);
-            }
+           try
+           {
+               motorista.validacoes();
+               _motoristaRepository.Add(motorista);
+           }
+           catch (Exception ex)
+           {
+               var resultado = new RetornoView<Motorista>() { sucesso = false, erro = ex.Message };
+               return BadRequest(resultado);
+           }
+  
+            var result = new RetornoView<Motorista>() { data = motorista, sucesso = true };
+            return CreatedAtRoute("GetMotorista", new { id = motorista.Id}, result);    
         }
 
         [HttpPut("{id}")]
         public ActionResult<RetornoView<Motorista>> Update(int id, [FromBody] Motorista motorista)
         {
             
-            //Verifica se o nome passado no formulário tem no mínimo 3 caracteres
-            if (motorista.Nome.Length < 3) 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Nome deve conter no mínimo 3 caracteres." };
-                return BadRequest(resultado);
-            }
-
+        try 
+        {
+            motorista.validacoes();
             var _motorista = _motoristaRepository.Find(id);
-
-            if(_motorista == null) 
-            {
-                return NotFound();
-            }
- 
-            if (string.IsNullOrEmpty(motorista.Apelido)) 
-            {
-                string[] nome = motorista.Nome.Split(" ");
-                for (int i = 0; i < nome.Length; i++)
-                {
-                    motorista.Apelido = nome[0];    
-                }
-            }
-            
-            //motorista     = variável vinda do form
-            //_motorista    = variável vinda do banco
             _motoristaRepository.Update(motorista, _motorista);
-
-            if (_motoristaRepository.Find(id).Equals(_motorista))
-            {
-                var resultado = new RetornoView<Motorista>() { data = _motorista, sucesso = true };
-                return resultado;
-            }
-            else 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false };
-                return BadRequest(resultado);
-            } 
+        }
+        catch(Exception ex)
+        {
+            var result = new RetornoView<Motorista>() { sucesso = false, erro = ex.Message };
+            return BadRequest(result);
+        }
+            
+        var resultado = new RetornoView<Motorista>() { data = _motoristaRepository.Find(id), sucesso = true };
+        return resultado;
         }
 
         [HttpDelete("{id}")]

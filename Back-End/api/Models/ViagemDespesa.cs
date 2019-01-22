@@ -10,7 +10,7 @@ namespace api.Models
         
         public int ViagemId { get; set; }
         [NotMapped]
-        public Viagem viagem { get; set; }
+        //public Viagem viagem { get; set; }
 
         public DateTimeOffset DataLancamento { get; set; }
         public string Historico { get; set; }

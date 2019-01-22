@@ -26,3 +26,6 @@ C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp
 C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.RazorTargetAssemblyInfo.cache
 C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.dll
 C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.pdb
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\bin\Debug\netcoreapp2.2\Validation.dll
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\bin\Debug\netcoreapp2.2\Validation.pdb
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\api\obj\Debug\netcoreapp2.2\api.csproj.CopyComplete

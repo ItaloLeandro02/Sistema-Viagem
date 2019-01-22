@@ -1,0 +1,9 @@
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\bin\Debug\netcoreapp2.2\Validation.deps.json
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\bin\Debug\netcoreapp2.2\Validation.dll
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\bin\Debug\netcoreapp2.2\Validation.pdb
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\obj\Debug\netcoreapp2.2\Validation.csprojAssemblyReference.cache
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\obj\Debug\netcoreapp2.2\Validation.csproj.CoreCompileInputs.cache
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\obj\Debug\netcoreapp2.2\Validation.AssemblyInfoInputs.cache
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\obj\Debug\netcoreapp2.2\Validation.AssemblyInfo.cs
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\obj\Debug\netcoreapp2.2\Validation.dll
+C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Validation\obj\Debug\netcoreapp2.2\Validation.pdb

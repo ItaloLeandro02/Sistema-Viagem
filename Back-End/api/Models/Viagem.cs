@@ -26,13 +26,13 @@ namespace api.Models
         [ForeignKey("cidadeDestino")]
         public int DestinoCidadeId { get; set; }
         public virtual CidadeIbge cidadeDestino { get; set; }
-        public virtual List<ViagemDespesa> despesas { get; set; } = new List<ViagemDespesa>();
+        public virtual List<ViagemDespesa> despesas { get; set; }
         public double ToneladaPrecoUnitario { get; set; }
         public double ToneladaCarga { get; set; }
         public double ValorTotalBruto { get; set; }
         public double ValorTotalDespesa { get; set; }
         public double ValorTotalLiquido { get; set; }
-        public virtual List<CombustivelDTO> combustivel { get; set; } = new List<CombustivelDTO>();
+        public virtual List<CombustivelDTO> combustivel { get; set; }
         public double Valor_Total_Combustivel { get; set; }
         public double Valor_Imposto { get; set; }
     }
