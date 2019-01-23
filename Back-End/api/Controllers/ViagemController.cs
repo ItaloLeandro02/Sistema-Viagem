@@ -82,233 +82,56 @@ namespace api.Controllers
             return Ok (new {data = _viagemRepository.DashboardFaturamentoDespesasCombustivel(dataInicial, dataFinal)});
         }
 
-
         [HttpPost]
         public ActionResult<RetornoView<Viagem>> Create([FromBody] Viagem viagem)
         {
-            if (viagem.DataSaida.Date == new DateTime(0001,1,1,0,0,0).Date) 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada e/ou data de saída não podem ser nulas." };
-                return BadRequest(resultado);
-            }
+            try
+            { 
 
-            if (viagem.DataChegada < viagem.DataSaida) 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada não pode ser menor que a data de saída." };
-                return BadRequest(resultado);
-            }
+                viagem.ValorTotalDespesa = 0;
 
-            if (viagem.OrigemCidadeId == viagem.DestinoCidadeId)
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A cidade de origem não pode ser a mesma de destino." };
-                return BadRequest(resultado);
-            }
-
-            if (!(viagem.OrigemCidadeId > 0) || !(viagem.DestinoCidadeId > 0))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A cidade de origem e/ou cidade de destino não podem ser nulas." };
-                return BadRequest(resultado);
-            }
-
-            if (!(viagem.MotoristaId > 0))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o motorista." };
-                return BadRequest(resultado);
-            }
-
-            if (!(viagem.VeiculoId > 0))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o veiculo." };
-                return BadRequest(resultado);
-            }
-
-            if (viagem.ToneladaPrecoUnitario <= 1)
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O preço da tonelada deve ser maior do que 1." };
-                return BadRequest(resultado);
-            }
-
-            if (viagem.ToneladaCarga <= 1)
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A quantidade carregada deve ser maior do que 1." };
-                return BadRequest(resultado);
-            }
-
-            //Por padrão será 0, caso tenha despesas vinculadas o valor será atualizado
-            viagem.ValorTotalDespesa = 0;
-
-            if (viagem.despesas != null) 
-            {
-                foreach (var item in viagem.despesas)
+                if (viagem.despesas != null)    
                 {
-                    item.Tipo = 1;
-                    //Valida as regras de negócio para despesas
-                    if (item.Historico.Length < 5) 
+                    foreach (var item in viagem.despesas)
                     {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O histórico deve conter no mínimo 5 caracteres." };
-                        return BadRequest(resultado);
-                    }
+                        item.Tipo = 1;
+                        item.validacoes();
 
-                    if (item.DataLancamento > viagem.DataChegada)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser maior do que a data de chegada." };
-                        return BadRequest(resultado);
+                        viagem.ValorTotalDespesa += item.Valor;
                     }
-
-                    if (item.DataLancamento < viagem.DataSaida)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser menor do que a data de chegada." };
-                        return BadRequest(resultado);
-                    }
-
-                    if (item.Valor <= 0)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O valor da despesa deve ser maior do que 0." };
-                        return BadRequest(resultado);
-                    }
-
-                    viagem.ValorTotalDespesa += item.Valor;
                 }
-            }
 
-            if (viagem.combustivel != null) 
-            {
-                foreach (var item in viagem.combustivel)
+                if (viagem.combustivel != null) 
                 {
-                    item.Tipo = 2;
-                    //Valida as regras de negócio para despesas
-                    if (item.Historico.Length < 5) 
+                    foreach (var item in viagem.combustivel)
                     {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O histórico deve conter no mínimo 5 caracteres." };
-                        return BadRequest(resultado);
+                        item.Tipo = 2;
+                        item.validacoes();
+                        viagem.Valor_Total_Combustivel += item.Valor;
                     }
-
-                    if (item.DataLancamento > viagem.DataChegada)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser maior do que a data de chegada." };
-                        return BadRequest(resultado);
-                    }
-
-                    if (item.DataLancamento < viagem.DataSaida)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser menor do que a data de chegada." };
-                        return BadRequest(resultado);
-                    }
-
-                    if (item.Valor <= 0)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O valor da despesa deve ser maior do que 0." };
-                        return BadRequest(resultado);
-                    }
-
-                    viagem.Valor_Total_Combustivel += item.Valor;
                 }
+
+                viagem.ValorTotalBruto   = (viagem.ToneladaCarga * viagem.ToneladaPrecoUnitario);
+                viagem.ValorTotalLiquido = (viagem.ValorTotalBruto - viagem.ValorTotalDespesa);
+                viagem.Valor_Imposto = ((viagem.ValorTotalBruto * 18) / 100);
+                viagem.Validacoes(); 
+                
+                _viagemRepository.Add(viagem);
+            }
+            catch (Exception ex) 
+            {
+                var result = new RetornoView<Viagem>() { sucesso = false, erro = ex.Message };
+                return BadRequest(result);
             }
 
-            viagem.Valor_Imposto = ((viagem.ValorTotalBruto * 18) / 100);
-            
-            _viagemRepository.Add(viagem);
-
-            if (viagem.Id > 0) 
-            {
-                var resultado = new RetornoView<Viagem>() { data = viagem, sucesso = true };
-                return CreatedAtRoute("GetViagem", new { id = viagem.Id}, resultado);    
-            }
-            else 
-            {
-                var resultado = new RetornoView<Viagem>() { sucesso = false };
-                return BadRequest(resultado);
-            }
+            var resultado = new RetornoView<Viagem>() { data = viagem, sucesso = true };
+            return CreatedAtRoute("GetViagem", new { id = viagem.Id}, resultado);    
         }
 
         [HttpPut("{id}")]
         public ActionResult<RetornoView<Viagem>> Update(int id, [FromBody] Viagem viagem)
         {
 
-            if (viagem.DataSaida.Date == new DateTime(0001,1,1,0,0,0).Date) 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada e/ou data de saída não podem ser nulas." };
-                return BadRequest(resultado);
-            }
-
-            if (viagem.DataChegada < viagem.DataSaida) 
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A Data de chegada não pode ser menor que a data de saída." };
-                return BadRequest(resultado);
-            }
-
-            if (viagem.OrigemCidadeId == viagem.DestinoCidadeId)
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A cidade de origem não pode ser a mesma de destino." };
-                return BadRequest(resultado);
-            }
-
-            if (!(viagem.OrigemCidadeId > 0) || !(viagem.DestinoCidadeId > 0))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A cidade de origem e/ou cidade de destino não podem ser nulas." };
-                return BadRequest(resultado);
-            }
-
-            if (!(viagem.MotoristaId > 0))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o motorista." };
-                return BadRequest(resultado);
-            }
-
-            if (!(viagem.VeiculoId > 0))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Informe o veiculo." };
-                return BadRequest(resultado);
-            }
-
-            if (viagem.ToneladaPrecoUnitario <= 1)
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O preço da tonelada deve ser maior do que 1." };
-                return BadRequest(resultado);
-            }
-
-            if (viagem.ToneladaCarga <= 1)
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A quantidade carregada deve ser maior do que 1." };
-                return BadRequest(resultado);
-            }
-
-            //Por padrão será 0, caso tenha despesas vinculadas o valor será atualizado
-            viagem.ValorTotalDespesa = 0;
-
-            if (viagem.despesas != null) 
-            {
-                foreach (var item in viagem.despesas)
-                {
-                    //Valida as regras de negócio para despesas
-                    if (item.Historico.Length < 5) 
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O histórico deve conter no mínimo 5 caracteres." };
-                        return BadRequest(resultado);
-                    }
-
-                    if (item.DataLancamento > viagem.DataChegada)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser maior do que a data de chegada." };
-                        return BadRequest(resultado);
-                    }
-
-                    if (item.DataLancamento < viagem.DataSaida)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "A data de lançamento não pode ser menor do que a data de chegada." };
-                        return BadRequest(resultado);
-                    }
-
-                    if (item.Valor <= 0)
-                    {
-                        var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "O valor da despesa deve ser maior do que 0." };
-                        return BadRequest(resultado);
-                    }
-
-                    viagem.ValorTotalDespesa += item.Valor;
-                }
-            }
-            
             var _viagem = _viagemRepository.Find(id);
                     
             if(_viagem == null) 
@@ -316,34 +139,44 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            if (viagem.despesas != null) 
+            try
             {
-                _viagem.ValorTotalDespesa = 0;
                 
-                for (int i = 0; i < viagem.despesas.Count(); i++)
+                viagem.ValorTotalDespesa = 0;
+                 
+                if (viagem.despesas != null) 
                 {
+                    foreach (var item in viagem.despesas)
+                    {
+                        item.validacoes();
 
-                _viagem.despesas[i].DataLancamento  = viagem.despesas[i].DataLancamento;
-                _viagem.despesas[i].Historico       = viagem.despesas[i].Historico;
-                _viagem.despesas[i].Valor           = viagem.despesas[i].Valor;
-
-                _viagem.ValorTotalDespesa += viagem.despesas[i].Valor;
+                        viagem.ValorTotalDespesa += item.Valor;
+                    }
                 }
-            }
-            //viagem     = variável vinda do form
-            //_viagem    = variável vinda do banco
-            _viagemRepository.Update(viagem, _viagem);
+                
+                _viagem.OrigemCidadeId            = viagem.OrigemCidadeId;
+                _viagem.DestinoCidadeId           = viagem.DestinoCidadeId;
+                _viagem.MotoristaId               = viagem.MotoristaId;
+                _viagem.ToneladaCarga             = viagem.ToneladaCarga;
+                _viagem.ToneladaPrecoUnitario     = viagem.ToneladaPrecoUnitario;
+                _viagem.DataChegada               = viagem.DataChegada;
+                _viagem.DataSaida                 = viagem.DataSaida;
+                
+                _viagem.ValorTotalBruto   = (_viagem.ToneladaCarga * _viagem.ToneladaPrecoUnitario);
+                _viagem.ValorTotalLiquido = (_viagem.ValorTotalBruto - _viagem.ValorTotalDespesa);
 
-            if (_viagemRepository.Find(id) == _viagem)
-            {
-                var resultado = new RetornoView<Viagem>() { data = _viagem, sucesso = true };
-                return resultado;
+                _viagem.Validacoes();
+
+                _viagemRepository.Update(_viagem);
             }
-            else 
+            catch (Exception ex)
             {
-                var resultado = new RetornoView<Viagem>() { sucesso = false };
-                return BadRequest(resultado);
-            } 
+                var result = new RetornoView<Viagem>() { sucesso = false, erro = ex.Message };
+                return BadRequest(result);
+            }
+
+            var resultado = new RetornoView<Viagem>() { data = _viagem, sucesso = true };
+            return resultado;
         }
 
         [HttpDelete("{id}")]

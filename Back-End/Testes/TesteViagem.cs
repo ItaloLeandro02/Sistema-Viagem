@@ -268,6 +268,183 @@ namespace Testes
         }
 
         [TestMethod]
+        public void naoDeveSalvar_dataLancamento_combustivel_diferente_dataChegada()
+        {
+            var viagem = new Viagem()
+            {   
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
+                DataChegada                 = new DateTime(2019, 1, 1),
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
+                OrigemCidadeId              = 263,
+                DestinoCidadeId             = 1500,
+                ToneladaPrecoUnitario       = 200,
+                ToneladaCarga               = 150,
+                despesas                    = new List<ViagemDespesa>(),
+                combustivel                 = new List<CombustivelDTO>()
+
+            };
+
+            var despesa = new ViagemDespesa()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "Lazer",
+                Valor           = 150,
+                Tipo            = 1
+            };
+            var combustivel = new CombustivelDTO()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 12),
+                Historico       = "Ipiranga",
+                Valor           = 300,
+                Tipo            = 2
+            };
+
+            viagem.despesas.Add(despesa);
+            viagem.combustivel.Add(combustivel);
+
+            controller.Create(viagem);
+
+            Assert.IsFalse(viagem.Id > 0);
+        }
+        [TestMethod]
+        public void naoDeveSalvar_combustivel_historico_menor_5_caracateres()
+        {
+            var viagem = new Viagem()
+            {   
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
+                DataChegada                 = new DateTime(2019, 1, 1),
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
+                OrigemCidadeId              = 263,
+                DestinoCidadeId             = 1500,
+                ToneladaPrecoUnitario       = 200,
+                ToneladaCarga               = 150,
+                despesas                    = new List<ViagemDespesa>(),
+                combustivel                 = new List<CombustivelDTO>()
+
+            };
+
+            var despesa = new ViagemDespesa()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "Lazer",
+                Valor           = 150,
+                Tipo            = 1
+            };
+            var combustivel = new CombustivelDTO()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "Ipir",
+                Valor           = 300,
+                Tipo            = 2
+            };
+
+            viagem.despesas.Add(despesa);
+            viagem.combustivel.Add(combustivel);
+
+            controller.Create(viagem);
+
+            Assert.IsFalse(viagem.Id > 0);
+        }
+
+        [TestMethod]
+        public void naoDeveSalvar_combustivel_valor_0()
+        {
+            var viagem = new Viagem()
+            {   
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
+                DataChegada                 = new DateTime(2019, 1, 1),
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
+                OrigemCidadeId              = 263,
+                DestinoCidadeId             = 1500,
+                ToneladaPrecoUnitario       = 200,
+                ToneladaCarga               = 150,
+                despesas                    = new List<ViagemDespesa>(),
+                combustivel                 = new List<CombustivelDTO>()
+
+            };
+
+            var despesa = new ViagemDespesa()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "Lazer",
+                Valor           = 150,
+                Tipo            = 1
+            };
+            var combustivel = new CombustivelDTO()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "Ipiranga",
+                Valor           = 0,
+                Tipo            = 2
+            };
+
+            viagem.despesas.Add(despesa);
+            viagem.combustivel.Add(combustivel);
+
+            controller.Create(viagem);
+
+            Assert.IsFalse(viagem.Id > 0);
+        }
+
+        [TestMethod]
+        public void deveSalvar_verificar_valor_combustivel()
+        {
+            var viagem = new Viagem()
+            {   
+                MotoristaId                 = 1153,
+                VeiculoId                   = 1225,
+                DataChegada                 = new DateTime(2019, 1, 1),
+                DataSaida                   = new DateTime(2019,1,1), //yyyy/MM/dd
+                OrigemCidadeId              = 263,
+                DestinoCidadeId             = 1500,
+                ToneladaPrecoUnitario       = 200,
+                ToneladaCarga               = 150,
+                despesas                    = new List<ViagemDespesa>(),
+                combustivel                 = new List<CombustivelDTO>()
+
+            };
+
+            var despesa = new ViagemDespesa()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "Lazer",
+                Valor           = 150,
+                Tipo            = 1
+            };
+            var ipiranga = new CombustivelDTO()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "Ipiranga",
+                Valor           = 300,
+                Tipo            = 2
+            };
+            var powerShell = new CombustivelDTO()
+            {
+                DataLancamento  =  new DateTime(2019, 1, 1),
+                Historico       = "PowerShell",
+                Valor           = 500,
+                Tipo            = 2
+            };
+
+            viagem.despesas.Add(despesa);
+            viagem.combustivel.Add(ipiranga);
+            viagem.combustivel.Add(powerShell);
+
+            controller.Create(viagem);
+            
+            double total = 0;
+
+            viagem.combustivel.ForEach(item => {
+                total += item.Valor;
+            });
+
+            Assert.IsTrue(viagem.Valor_Total_Combustivel == total);
+        }
+
+        [TestMethod]
         public void deveSalvar_objeto_ok()
         {
 
@@ -360,14 +537,14 @@ namespace Testes
                 despesas                    = new List<ViagemDespesa>()
             };
 
+            viagem.despesas.Add(lazer);
+            viagem.despesas.Add(combustivel);
+
             double despesas = 0;
             foreach (var item in viagem.despesas)
             {
                 despesas += item.Valor;
             }
-
-            viagem.despesas.Add(lazer);
-            viagem.despesas.Add(combustivel);
           
             controller.Create(viagem);
 

@@ -32,3 +32,5 @@ C:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\De
 C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\italo\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+c:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Validation.dll
+c:\Users\Adsoft developer\Documents\GitHub\Sistema-Viagem\Back-End\Testes\bin\Debug\netcoreapp2.2\Validation.pdb

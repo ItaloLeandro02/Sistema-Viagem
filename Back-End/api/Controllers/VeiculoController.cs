@@ -35,73 +35,50 @@ namespace api.Controllers
         [HttpPost]
         public ActionResult<RetornoView<Veiculo>> Create([FromBody] Veiculo veiculo)
         {
-            if (String.IsNullOrEmpty(veiculo.Fabricante) || String.IsNullOrEmpty(veiculo.Modelo))
+            try
             {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Fabricante e/ou Modelo não podem ser nulos." };
-                return BadRequest(resultado);
+                veiculo.validacoes();
+                _veiculoRepository.Add(veiculo);
+
+            }
+            catch (Exception ex)
+            {
+                var result = new RetornoView<Veiculo>() { sucesso = false, erro = ex.Message };
+                return BadRequest(result);
             }
 
-            if ((veiculo.AnoFabricacao < 2000) || (veiculo.AnoModelo < veiculo.AnoFabricacao))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Ano de Fabricação não pode ser menor que 200 ou menor que o ano de fabricação." };
-                return BadRequest(resultado);
-            }
-
-            _veiculoRepository.Add(veiculo);
-
-            if (veiculo.Id > 0) 
-            {
                 var resultado = new RetornoView<Veiculo>() { data = veiculo, sucesso = true };
-                return CreatedAtRoute("GetVeiculo", new { id = veiculo.Id}, resultado);    
-            }
-            else 
-            {
-                var resultado = new RetornoView<Veiculo>() { sucesso = false };
-                return BadRequest(resultado);
-            }
+                return CreatedAtRoute("GetVeiculo", new { id = veiculo.Id}, resultado);   
         }
 
         [HttpPut("{id}")]
         public ActionResult<RetornoView<Veiculo>> Update(int id, [FromBody] Veiculo veiculo)
         {
-            if (String.IsNullOrEmpty(veiculo.Fabricante) || String.IsNullOrEmpty(veiculo.Modelo))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Fabricante e/ou Modelo não podem ser nulos." };
-                return BadRequest(resultado);
-            }
-
-            if ((veiculo.AnoFabricacao < 2000) || (veiculo.AnoModelo < veiculo.AnoFabricacao))
-            {
-                var resultado = new RetornoView<Motorista>() { sucesso = false, erro = "Ano de Fabricação não pode ser menor que 200 ou menor que o ano de fabricação." };
-                return BadRequest(resultado);
-            }
             var _veiculo = _veiculoRepository.Find(id);
-                
             if(_veiculo == null) 
             {
                 return NotFound();
             }
-
-            _veiculo.AnoFabricacao = veiculo.AnoFabricacao;
-            _veiculo.AnoModelo     = veiculo.AnoModelo;
-            _veiculo.Desativado    = veiculo.Desativado;
-            _veiculo.Fabricante    = veiculo.Fabricante;
-            _veiculo.Modelo        = veiculo.Modelo;
-
-            //veiculo     = variável vinda do form
-            //_veiculo    = variável vinda do banco
-            _veiculoRepository.Update(veiculo, _veiculo);
-
-            if (_veiculoRepository.Find(id).Equals(_veiculo))
+            
+            try
             {
-                var resultado = new RetornoView<Veiculo>() { data = _veiculo, sucesso = true };
-                return resultado;
+                veiculo.validacoes();
+                
+                _veiculo.AnoFabricacao = veiculo.AnoFabricacao;
+                _veiculo.AnoModelo     = veiculo.AnoModelo;
+                _veiculo.Desativado    = veiculo.Desativado;
+                _veiculo.Fabricante    = veiculo.Fabricante;
+                _veiculo.Modelo        = veiculo.Modelo;
+                _veiculoRepository.Update(veiculo, _veiculo);
             }
-            else 
+            catch (Exception ex)
             {
-                var resultado = new RetornoView<Veiculo>() { sucesso = false };
-                return BadRequest(resultado);
-            } 
+                var result = new RetornoView<Veiculo>() { sucesso = false, erro = ex.Message };
+                return BadRequest(result);
+            }
+
+            var resultado = new RetornoView<Veiculo>() { data = _veiculo, sucesso = true };
+            return resultado;
         }
 
         [HttpDelete("{id}")]

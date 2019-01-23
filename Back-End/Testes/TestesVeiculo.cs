@@ -157,7 +157,7 @@ namespace api.Testes
         }
 
         [TestMethod]
-        public void naoDeveAtualizar_AnoFabricante_menor_200()
+        public void naoDeveAtualizar_AnoFabricante_menor_2000()
         {
             var veiculo = new Veiculo()
             {
@@ -171,7 +171,7 @@ namespace api.Testes
             {
                 Fabricante      = "Fiat",
                 Modelo          = "Fusca",
-                AnoFabricacao   = 2017,
+                AnoFabricacao   = 1999,
                 AnoModelo       = 2016
             };
 
@@ -207,7 +207,7 @@ namespace api.Testes
         }
 
         [TestMethod]
-        public void naoDeveAtualizar_AnoModelo_menor_200()
+        public void naoDeveAtualizar_AnoModelo_menor_2000()
         {
             var veiculo = new Veiculo()
             {

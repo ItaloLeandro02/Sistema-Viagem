@@ -16,6 +16,6 @@ namespace api.Repository
         IEnumerable<DashboarFaturamentoDespesasCombustivel> DashboardFaturamentoDespesasCombustivel(string dataInicial, string dataFinal);
         Viagem Find(int id);
         void Remove(int id);
-        void Update(Viagem form, Viagem banco);
+        void Update(Viagem viagem);
     }
 }

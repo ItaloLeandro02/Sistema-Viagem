@@ -22,9 +22,6 @@ namespace api.Repository
             {
                 try 
                 {
-                    viagem.ValorTotalBruto   = (viagem.ToneladaCarga * viagem.ToneladaPrecoUnitario);
-                    viagem.ValorTotalLiquido = (viagem.ValorTotalBruto - viagem.ValorTotalDespesa);  
-
                     _context.Viagem.Add(viagem);
                     _context.SaveChanges();
                     transaction.Commit();
@@ -34,7 +31,6 @@ namespace api.Repository
                     Console.WriteLine("Erro");
                     Console.WriteLine(e);
                     transaction.Rollback();
-                    return;
                 }
             }
         }
@@ -71,8 +67,8 @@ namespace api.Repository
         {
             return _context.Faturamento
             .FromSql($"SELECT  ROW_NUMBER() OVER(ORDER BY ve.modelo ASC) Id, (SELECT DATEPART ( MONTH, vi.dataChegada)) Mes, ve.modelo Modelo, " +
-            "SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo").
-            DefaultIfEmpty()
+            "SUM(vi.valorTotalLiquido) Total FROM veiculo as ve, viagem as vi WHERE ve.id = vi.veiculoId  GROUP BY vi.dataChegada, ve.modelo")
+            .DefaultIfEmpty()
             .AsEnumerable();
         }
 
@@ -96,21 +92,51 @@ namespace api.Repository
 
         public Viagem Find(int id)
         {
-            //Preciso trabalhar aqui para não retornar dados sensíveis
-            return _context.Viagem
+            var teste = _context.Viagem
             .Include(v => v.veiculo)
             .Include(m => m.motorista)
             .Include(o => o.cidadeOrigem)
             .Include(d => d.cidadeDestino)
             .Include(e => e.despesas)
-            .Include(f => f.combustivel)
+            .Include(e => e.combustivel)
             .FirstOrDefault(u => u.Id == id);
+            
+            if (teste == null)
+                return teste;
+
+            var viagem = new Viagem();
+            viagem.Id = teste.Id;
+            viagem.MotoristaId = teste.MotoristaId;
+            viagem.motorista = teste.motorista;
+            viagem.VeiculoId = teste.VeiculoId;
+            viagem.veiculo = teste.veiculo;
+            viagem.OrigemCidadeId = teste.OrigemCidadeId;
+            viagem.cidadeOrigem = teste.cidadeOrigem;
+            viagem.DestinoCidadeId = teste.DestinoCidadeId;
+            viagem.cidadeDestino = teste.cidadeDestino;
+            viagem.despesas = new List<ViagemDespesa>();
+            viagem.combustivel = new List<CombustivelDTO>();
+
+            teste.despesas.ForEach(item => {
+                if (item.Tipo == 1)
+                {
+                    viagem.despesas.Add(item);
+                }
+            });
+
+            teste.combustivel.ForEach(item => {
+                if (item.Tipo == 2)
+                {
+                    viagem.combustivel.Add(item);
+                }
+            });
+
+            return viagem;
         }
 
         public IEnumerable<Viagem> GetAll()
         {
-            //Preciso trabalhar aqui para não retornar dados sensíveis
-            return _context.Viagem
+            var teste = _context.Viagem
             .Include(v => v.veiculo)
             .Include(m => m.motorista)
             .Include(o => o.cidadeOrigem)
@@ -118,6 +144,43 @@ namespace api.Repository
             .Include(e => e.despesas)
             .Include(e => e.combustivel)
             .ToList();
+
+            var viagens = new List<Viagem>();
+
+            teste.ForEach(item => {
+
+                var viagem = new Viagem();
+                viagem.Id = item.Id;
+                viagem.MotoristaId = item.MotoristaId;
+                viagem.motorista = item.motorista;
+                viagem.VeiculoId = item.VeiculoId;
+                viagem.veiculo = item.veiculo;
+                viagem.OrigemCidadeId = item.OrigemCidadeId;
+                viagem.cidadeOrigem = item.cidadeOrigem;
+                viagem.DestinoCidadeId = item.DestinoCidadeId;
+                viagem.cidadeDestino = item.cidadeDestino;
+                viagem.despesas = new List<ViagemDespesa>();
+                viagem.combustivel = new List<CombustivelDTO>();
+
+                item.despesas.ForEach(despesa => {
+                    if (despesa.Tipo == 1)
+                    {
+                        viagem.despesas.Add(despesa);
+                    }
+                });
+
+                item.combustivel.ForEach(combustivel => {
+                    if (combustivel.Tipo == 2)
+                    {
+                        viagem.combustivel.Add(combustivel);
+                    }
+                });
+
+                viagens.Add(viagem);
+            });
+          
+
+            return viagens;
         }
 
         public void Remove(int id)
@@ -140,24 +203,13 @@ namespace api.Repository
         }
 
         //Precisa ser melhorado?
-        public void Update(Viagem form, Viagem banco)
+        public void Update(Viagem viagem)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
-                    banco.OrigemCidadeId            = form.OrigemCidadeId;
-                    banco.DestinoCidadeId           = form.DestinoCidadeId;
-                    banco.MotoristaId               = form.MotoristaId;
-                    banco.ToneladaCarga             = form.ToneladaCarga;
-                    banco.ToneladaPrecoUnitario     = form.ToneladaPrecoUnitario;
-                    banco.DataChegada               = form.DataChegada;
-                    banco.DataSaida                 = form.DataSaida;
-                    
-                    banco.ValorTotalBruto   = (banco.ToneladaCarga * banco.ToneladaPrecoUnitario);
-                    banco.ValorTotalLiquido = (banco.ValorTotalBruto - banco.ValorTotalDespesa);
-
-                    _context.Viagem.Update(banco);
+                    _context.Viagem.Update(viagem);
                     _context.SaveChanges();
                     transaction.Commit();
                 }

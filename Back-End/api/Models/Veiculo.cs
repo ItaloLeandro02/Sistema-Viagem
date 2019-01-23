@@ -16,7 +16,11 @@ namespace api.Models
         public void validacoes()
         {
             AssertionConcern.AssertArgumentNotNull(this.AnoFabricacao, "Ano de fasbricação não pode ser nulo");
-            AssertionConcern.AssertArgumentNotNull(this.Fabricante, "Nome deve conter no mínimo 3 caracteres");
+            AssertionConcern.AssertArgumentNotEmpty(this.Fabricante, "Nome do fabricante deve conter no mínimo 3 caracteres");
+            AssertionConcern.AssertArgumentNotEmpty(this.Modelo, "Modelo não pode ser nullo");
+            AssertionConcern.AssertArgumentNotNull(this.AnoModelo, "Ano de modelo obrigatório");
+            AssertionConcern.AssertArgumentTrue(this.AnoFabricacao >= 2000, "O veiculo deve ter sido fabricado a partir de 2000");
+            AssertionConcern.AssertArgumentTrue(this.AnoModelo >= this.AnoFabricacao, "O ano de fabricação não pode ser maior que o de modelo");
         }
     }
 }
