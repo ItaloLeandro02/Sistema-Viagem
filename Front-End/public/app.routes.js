@@ -84,6 +84,15 @@ router.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             params: {
                 title: "Controle Financeiro"
             }
+        })
+        .state('cidade', {
+            url: '/cidade',
+            templateUrl: '/modules/cidade/views/cidades.html',
+            controller: 'CidadeController',
+            controllerAs: 'vm',
+            params: {
+                title: "Lista de Cidades"
+            }
         });
 
 

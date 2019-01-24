@@ -47,7 +47,29 @@ md-tabs md-tabs-wrapper {
     margin-top: 25px; 
 }
 
-
 .negrito {
     font-weight: 600;
 }
+
+#cidades {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #cidades td, #cidades th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #cidades tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #cidades tr:hover {background-color: #ddd;}
+  
+  #cidades th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }

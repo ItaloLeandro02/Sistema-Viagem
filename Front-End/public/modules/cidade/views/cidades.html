@@ -1,0 +1,61 @@
+
+<div>
+    <md-autocomplete
+        md-input-name="autocompleteField"
+        md-input-minlength="3"
+        md-input-maxlength="18"
+        md-no-cache="ctrl.noCache"
+        md-selected-item="ctrl.selectedItem"
+        md-search-text="ctrl.searchText"
+        md-items="cidade in vm.buscaCidade(ctrl.searchText)"
+        md-item-text="cidade.cidade"
+        md-require-match
+        md-floating-label="Favorite state"
+        input-aria-describedby="favoriteStateDescription">
+          <md-item-template>
+            <span md-highlight-text="ctrl.searchText">{{cidade.cidade}}</span>
+          </md-item-template>
+            <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                <div ng-message="required">You <b>must</b> have a favorite state.</div>
+                <div ng-message="md-require-match">Please select an existing state.</div>
+                <div ng-message="minlength">Your entry is not long enough.</div>
+                <div ng-message="maxlength">Your entry is too long.</div>
+            </div>
+    </md-autocomplete>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <table id="cidades">
+            <thead>
+                <tr>
+                    <th ng-click = "vm.ordenar('id')"> ID</th>
+                    <th ng-click = "vm.ordenar('cidade')"> Nome</th>
+                    <th ng-click = "vm.ordenar('distrito')"> Distrito</th>
+                    <th ng-click = "vm.ordenar('subDistrito')"> Sub-Distrito</th>
+                    <th ng-click = "vm.ordenar('uf')"> Uf</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cidade in vm.dataset | filter: orderBy:vm.sortKey">
+                    <td>{{cidade.id}}</td>
+                    <td>{{cidade.cidade}}</td>
+                    <td>{{cidade.distrito}}</td>
+                    <td>{{cidade.subDistrito}}</td>
+                    <td>{{cidade.uf}}</td>
+                </tr>
+            </tbody>
+        </table>
+            
+            <div layout="row" layout-align="center">
+                <md-button ng-click="vm.retornar()" aria-label="sf">
+                    <md-icon md-svg-src="assets/img/left-arrow.svg"></md-icon>
+                </md-button>
+                    <br>
+                    Página: {{vm.index}}
+                <md-button ng-click="vm.avancar()" aria-label="sf">
+                    <md-icon md-svg-src="assets/img/rigth-arrow.svg"></md-icon>
+                </md-button>
+            </div>
+    </div>
+</div>

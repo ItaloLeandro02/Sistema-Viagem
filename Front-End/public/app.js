@@ -13,7 +13,8 @@ var materialApp = angular
     'app.motorista',
     'app.veiculo',
     'app.viagem',
-    'app.faturamentoArea'
+    'app.faturamentoArea',
+    'app.cidade'
     
 
 ]).config(function($mdThemingProvider) {

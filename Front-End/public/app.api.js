@@ -70,6 +70,18 @@
         }
       })
 
+      api.cidade   = $resource(api.baseUrl + 'cidade', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
+      api.returnCidade   = $resource(api.baseUrl + 'cidade/return-cidade', {},
+        {update: {
+          method: 'PUT'
+        }
+      })
+
       return api;
     }
 

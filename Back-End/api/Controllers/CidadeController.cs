@@ -1,3 +1,4 @@
+using System;
 using api.Models;
 using api.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,18 @@ namespace api.Controllers
         [HttpGet]
         public ActionResult<RetornoView<CidadeIbge>> GetAll()
         {
-            return Ok (new {data = _cidadeRepository.GetAll()});
+            string coluna = HttpContext.Request.Query["coluna"];
+            int column = Convert.ToInt32(coluna);
+
+            return Ok (new {data = _cidadeRepository.Get(column)});
+        }
+
+        [HttpGet("return-cidade")]
+        public ActionResult<RetornoView<CidadeIbge>> GetCidade()
+        {
+            string cidade = HttpContext.Request.Query["cidade"];
+
+            return Ok (new {data = _cidadeRepository.Get(cidade)});
         }
 
         [HttpGet("{id}", Name = "GetCidade")]
